@@ -4,6 +4,7 @@
 TITLE="SVN Repository Creation"
 RIGHT_NOW=$(date +"%x %r %Z")
 TIME_STAMP="Updated on $RIGHT_NOW by $USER"
+SVN_PARENT_PATH="/mnt/biomsvn/"
 
 ##### Functions
 
@@ -67,9 +68,82 @@ _EOF_
 
 }
 
+function conf_authz
+{
+
+    OUTFILE="$1/conf/authz"         # Name of the file to generate.
+
+
+    # -----------------------------------------------------------
+    # 'Here document containing the body of the generated script.
+    (
+    cat <<- EOF
+    [aliases]
+    jfern = julien.fernandez
+    hsantinjanin = hugues.santinjanin
+    acosta = adeline.costa
+    alari = alberth.lari
+    atourneroche = alice.tourneroche
+    danbarasu = dhiwakar.anbarasu
+    epauwels = elodie.pauwels
+    faubin = francois.aubin
+    iackermann = isabelle.ackermann
+    lhannouche = linda.hannouche
+    mmonnereau = magalie.monnereau
+    chariz = cleo.hariz
+    nbraquet = nelly.braquet
+    smainard = sandrine.mainard
+
+    [groups]
+    stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
+    data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
+    all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
+
+    [/]
+    * = r
+    &jfern = rw
+    &hsantinjanin = rw
+
+    [$2:/]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
+
+    [$2:/trunk]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
+
+    [$2:/tags]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
+
+    [$2:/branches]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
+    EOF
+    ) > $OUTFILE
+
+    # -----------------------------------------------------------
+
+    #  Quoting the 'limit string' prevents variable expansion
+    #+ within the body of the above 'here document.'
+    #  This permits outputting literal strings in the output file.
+
+    if [ -f "$OUTFILE" ]; then
+        chmod 770 $OUTFILE
+    # Make the generated file executable.
+    else
+        echo "Problem in creating file: \"$OUTFILE\""
+    fi
+}
+
+
 function usage
 {
-    echo "usage: system_page [[[-f file ] [-i]] | [-h]]"
+    echo "usage: create_repository [[[-r repository ] [-i]] | [-h]]"
 }
 
 
@@ -99,33 +173,38 @@ done
 # Test code to verify command line processing
 
 if [ "$interactive" = "1" ]; then
+
     response=
-    echo -n "Enter name of output file [$repository] > "
+    echo "Select the department : "
+    echo "    biomdev (1)"
+    echo "    datadev (2)"
+    echo "    data    (3)"
+    echo "    statdev (4)"
+    echo "    stat    (5)"
+    echo -n "Enter your choice > "
+    read response
+    if [ -n "$response" ] && ([ "$response" = "1"] || [ "$response" = "2" ] || [ "$response" = "3" ] || [ "$response" = "4" ] || [ "$response" = "5" ]); then
+        repositoryPath="$SVN_PARENT_PATH$response"
+    fi
+
+    response=
+    echo -n "Enter the name of the [$repository] > "
     read response
     if [ -n "$response" ]; then
         repository=$response
     fi
 
-    if [ -d $repository ]; then
-        echo -n "Repository already exists. Overwrite? (y/n) > "
-        read response
-        if [ "$response" != "y" ]; then
-            echo "Exiting program."
-            exit 1
-        fi
+    if [ -d "$repositoryPath/$repository" ]; then
+        echo "Repository already exists."
     else
         echo "Creation of the repository"
         svn create $repository
+        echo "Creation of the authz file : [$repositoryPath/$repository]"
+        conf_authz $repository "$repositoryPath/$repository"
         echo "Change mod (770) for the repository"
-        chmod 770 -R $repository
+        chmod 770 -R "$repositoryPath/$repository"
         echo "Change owner (www-data) to the repository"
-        chown www-data:www-data -R $repository
+        chown www-data:www-data -R "$repositoryPath/$repository"
         
     fi
 fi
-
-
-# Write page (comment out until testing is complete)
-
-# write_page > $filename
-echo -n "Enter name of output file [$filename] > "
