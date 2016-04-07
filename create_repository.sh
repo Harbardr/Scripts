@@ -8,74 +8,13 @@ SVN_PARENT_PATH="/mnt/biomsvn/"
 
 ##### Functions
 
-function system_info
-{
-    echo "<h2>System release info</h2>"
-    echo "<p>Function not yet implemented</p>"
-}   # end of system_info
-
-
-function show_uptime
-{
-    echo "<h2>System uptime</h2>"
-    echo "<pre>"
-    uptime
-    echo "</pre>"
-}   # end of show_uptime
-
-
-function drive_space
-{
-    echo "<h2>Filesystem space</h2>"
-    echo "<pre>"
-    df
-    echo "</pre>"
-}   # end of drive_space
-
-
-function home_space
-{
-    # Only the superuser can get this information
-
-    if [ "$(id -u)" = "0" ]; then
-        echo "<h2>Home directory space by user</h2>"
-        echo "<pre>"
-        echo "Bytes Directory"
-        du -s /home/* | sort -nr
-        echo "</pre>"
-    fi
-
-}   # end of home_space
-
-
-function write_page
-{
-    cat <<- _EOF_
-    <html>
-        <head>
-        <title>$TITLE</title>
-        </head>
-        <body>
-        <h1>$TITLE</h1>
-        <p>$TIME_STAMP</p>
-        $(system_info)
-        $(show_uptime)
-        $(drive_space)
-        $(home_space)
-        </body>
-    </html>
-_EOF_
-
-}
-
 function conf_authz
 {
 
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
 
-
     # -----------------------------------------------------------
-    # 'Here document containing the body of the generated script.
+    # 'The document containing the body of the authz.
     (
     cat <<- EOF
     [aliases]
@@ -127,7 +66,6 @@ function conf_authz
     ) > $OUTFILE
 
     # -----------------------------------------------------------
-
     #  Quoting the 'limit string' prevents variable expansion
     #+ within the body of the above 'here document.'
     #  This permits outputting literal strings in the output file.
@@ -147,9 +85,15 @@ function usage
 }
 
 
+function structure_repository
+{
+    url=svn://$1
+    svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure" --parents
+}
+
 ##### Main
 
-interactive=
+interactive=1
 #filename=
 repository=
 
@@ -174,31 +118,66 @@ done
 
 if [ "$interactive" = "1" ]; then
 
-    response=
-    echo "Select the department : "
-    echo "    biomdev (1)"
-    echo "    datadev (2)"
-    echo "    data    (3)"
-    echo "    statdev (4)"
-    echo "    stat    (5)"
-    echo -n "Enter your choice > "
-    read response
-    if [ -n "$response" ] && ([ "$response" = "1"] || [ "$response" = "2" ] || [ "$response" = "3" ] || [ "$response" = "4" ] || [ "$response" = "5" ]); then
-        repositoryPath="$SVN_PARENT_PATH$response"
-    fi
 
-    response=
-    echo -n "Enter the name of the [$repository] > "
-    read response
-    if [ -n "$response" ]; then
-        repository=$response
-    fi
+    echo "Waiting for the repository [$repository] creation."
+
+    loopDpt=0
+    while [ "$loopDpt"=="0" ];do
+        response=
+        echo "Select the department : "
+        echo "    biomdev (1)"
+        echo "    datadev (2)"
+        echo "    data    (3)"
+        echo "    statdev (4)"
+        echo "    stat    (5)"
+        echo -n "Enter your choice > "
+        read response
+        if [ -n "$response" ]; then
+            case $response in
+                "1" )
+                    response="biomdev" 
+                    loopDpt=1;;
+                "2" )
+                    response="datadev"
+                    loopDpt=1;;
+                "3" )
+                    response="data" 
+                    loopDpt=1;;
+                "4" )
+                    response="statdev"
+                    loopDpt=1;;
+                "5" )
+                    response="stat"
+                    loopDpt=1;;
+            esac
+        fi
+        if [ "$loopDpt"=="1" ]
+            repositoryPath="$SVN_PARENT_PATH$response"
+        else
+            cd "The choice [$response] don't exist."
+        fi
+    done
+
+    #responseRepo=
+    #echo -n "Enter the name of the [$repository] > "
+    #read responseRepo
+    #if [ -n "$responseRepo" ]; then
+    #    repository=$responseRepo
+    #fi
 
     if [ -d "$repositoryPath/$repository" ]; then
-        echo "Repository already exists."
+        echo "This repository [$repositoryPath/$repository] already exists."
     else
-        echo "Creation of the repository"
-        svn create $repository
+        echo "Creation of the repository [$repositoryPath/$repository]"
+        svnadmin create "$repositoryPath/$repository"
+
+        #cd "$repositoryPath/$repository"
+        #svn mkdir trunk tags branches
+        #svn commit -m"Creating basic directory structure"
+        #cd "/"
+
+        structure_repository "svn$response.vls.local" $repository
+
         echo "Creation of the authz file : [$repositoryPath/$repository]"
         conf_authz $repository "$repositoryPath/$repository"
         echo "Change mod (770) for the repository"
