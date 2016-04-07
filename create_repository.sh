@@ -187,3 +187,5 @@ if [ "$interactive" = "1" ]; then
         
     fi
 fi
+
+exit 0
