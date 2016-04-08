@@ -22,8 +22,9 @@ help for the command.
 .TP
 \fINote:\fP beware that choosing '\fB-i\fP'.
 .SH EXEMPLES
+.TP
 \fBcreate_repository -r\fP \fIVP000X\fR
-Create the repository for the study \fIVP000X.\fR
+Create the repository for the study \fIVP000X\fR.
 .TP
 \fBcreate_repository -h\fP
 Display the usage of the command.
