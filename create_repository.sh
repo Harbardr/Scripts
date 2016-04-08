@@ -84,13 +84,23 @@ function usage
 function structure_repository
 {
     url=http://$1
-    echo "svn mkdir $url/$2/trunk -m \"Creating basic directory structure [trunk]\" --parents"
-    #svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure [trunk, tags, branches]" --parents
-    svn mkdir $url/$2/trunk -m "Creating basic directory structure [trunk]" --parents
-    echo "svn mkdir $url/$2/branches -m \"Creating basic directory structure [tags]\" --parents"
-    svn mkdir $url/$2/branches -m "Creating basic directory structure [tags]" --parents
-    echo "svn mkdir $url/$2/tags -m \"Creating basic directory structure [branches]\" --parents"
-    svn mkdir $url/$2/tags -m "Creating basic directory structure [branches]" --parents
+    #echo "svn mkdir $url/$2/trunk -m \"Creating basic directory structure [trunk]\" --parents"
+    echo "Creating basic directory structure [trunk, tags, branches]"
+    svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure [trunk, tags, branches]" --parents
+    #svn mkdir $url/$2/trunk -m "Creating basic directory structure [trunk]" --parents
+    #echo "svn mkdir $url/$2/branches -m \"Creating basic directory structure [tags]\" --parents"
+    #svn mkdir $url/$2/branches -m "Creating basic directory structure [tags]" --parents
+    #echo "svn mkdir $url/$2/tags -m \"Creating basic directory structure [branches]\" --parents"
+    #svn mkdir $url/$2/tags -m "Creating basic directory structure [branches]" --parents
+}
+
+function change_rights
+{
+    echo "Change mod (770) for the repository"
+    chmod 770 -R "$1"
+    echo "Change owner (www-data) to the repository"
+    chown www-data:www-data -R "$1"
+    echo ""
 }
 
 ##### Main
@@ -154,7 +164,7 @@ if [ "$interactive" = "1" ]; then
         else
             cd "The choice [$response] don't exist."
         fi
-        echo "$loopDpt"
+        #echo "$loopDpt"
     done
 
     #responseRepo=
@@ -166,10 +176,11 @@ if [ "$interactive" = "1" ]; then
 
     if [ -d "$repositoryPath/$repository" ]; then
         echo "This repository [$repositoryPath/$repository] already exists."
+        exit 1
     else
         echo "Creation of the repository [$repositoryPath/$repositoryyy]"
         svnadmin create "$repositoryPath/$repository"
-
+        echo ""
         #cd "$repositoryPath/$repository"
         #svn mkdir trunk tags branches
         #svn commit -m"Creating basic directory structure"
@@ -177,19 +188,18 @@ if [ "$interactive" = "1" ]; then
         
         echo "Creation of the authz file : [$repositoryPath/$repository]"
         conf_authz "$repositoryPath/$repository" "$repository"
-        
-        echo "Change mod (770) for the repository"
-        chmod 770 -R "$repositoryPath/$repository"
-        
-        echo "Change owner (www-data) to the repository"
-        chown www-data:www-data -R "$repositoryPath/$repository"
+        echo ""
         
         service apache2 restart
         
         echo "Creation of the repository structure [trunk, tags, branches]"
         structure_repository "svn$response.vls.local" "$repository"
+        echo ""
+        
+        change_rights "$repositoryPath/$repository"
         
         echo "Repository and subfolders created successfully."
+        echo ""
         echo "$TIME_STAMP"
     fi
 fi
