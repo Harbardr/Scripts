@@ -10,59 +10,57 @@ SVN_PARENT_PATH="/mnt/biomsvn/"
 
 function conf_authz
 {
-
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
-
     # -----------------------------------------------------------
     # 'The document containing the body of the authz.
     (
     cat <<- EOF
-    [aliases]
-    jfern = julien.fernandez
-    hsantinjanin = hugues.santinjanin
-    acosta = adeline.costa
-    alari = alberth.lari
-    atourneroche = alice.tourneroche
-    danbarasu = dhiwakar.anbarasu
-    epauwels = elodie.pauwels
-    faubin = francois.aubin
-    iackermann = isabelle.ackermann
-    lhannouche = linda.hannouche
-    mmonnereau = magalie.monnereau
-    chariz = cleo.hariz
-    nbraquet = nelly.braquet
-    smainard = sandrine.mainard
+[aliases]
+jfern = julien.fernandez
+hsantinjanin = hugues.santinjanin
+acosta = adeline.costa
+alari = alberth.lari
+atourneroche = alice.tourneroche
+danbarasu = dhiwakar.anbarasu
+epauwels = elodie.pauwels
+faubin = francois.aubin
+iackermann = isabelle.ackermann
+lhannouche = linda.hannouche
+mmonnereau = magalie.monnereau
+chariz = cleo.hariz
+nbraquet = nelly.braquet
+smainard = sandrine.mainard
 
-    [groups]
-    stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
-    data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
-    all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
+[groups]
+stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
+data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
+all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
 
-    [/]
-    * = r
-    &jfern = rw
-    &hsantinjanin = rw
+[/]
+* = r
+&jfern = rw
+&hsantinjanin = rw
 
-    [$2:/]
-    * =
-    &jfern = rw
-    &hsantinjanin = rw
+[$2:/]
+* =
+&jfern = rw
+&hsantinjanin = rw
 
-    [$2:/trunk]
-    * =
-    &jfern = rw
-    &hsantinjanin = rw
+[$2:/trunk]
+* =
+&jfern = rw
+&hsantinjanin = rw
 
-    [$2:/tags]
-    * =
-    &jfern = rw
-    &hsantinjanin = rw
+[$2:/tags]
+* =
+&jfern = rw
+&hsantinjanin = rw
 
-    [$2:/branches]
-    * =
-    &jfern = rw
-    &hsantinjanin = rw
-    EOF
+[$2:/branches]
+* =
+&jfern = rw
+&hsantinjanin = rw
+EOF
     ) > $OUTFILE
 
     # -----------------------------------------------------------
@@ -77,7 +75,6 @@ function conf_authz
         echo "Problem in creating file: \"$OUTFILE\""
     fi
 }
-
 
 function usage
 {
@@ -117,12 +114,9 @@ done
 # Test code to verify command line processing
 
 if [ "$interactive" = "1" ]; then
-
-
     echo "Waiting for the repository [$repository] creation."
-
-    loopDpt=0
-    while [ "$loopDpt"=="0" ];do
+    loopDpt="0"
+    while [ "$loopDpt" -eq "0" ]; do
         response=
         echo "Select the department : "
         echo "    biomdev (1)"
@@ -135,27 +129,30 @@ if [ "$interactive" = "1" ]; then
         if [ -n "$response" ]; then
             case $response in
                 "1" )
-                    response="biomdev" 
-                    loopDpt=1 ;;
+                    response="biomdev"
+                    loopDpt="1"
+                    ;;
                 "2" )
                     response="datadev"
-                    loopDpt=1 ;;
+                    loopDpt="1" ;;
                 "3" )
-                    response="data" 
-                    loopDpt=1 ;;
+                    response="data"
+                    loopDpt="1" ;;
                 "4" )
-                    response="statdev"
-                    loopDpt=1 ;;
+                   response="statdev"
+                    loopDpt="1" ;;
                 "5" )
                     response="stat"
-                    loopDpt=1 ;;
+                    loopDpt="1" ;;
             esac
         fi
-        if [ "$loopDpt"=="1" ]
+        if [ "$loopDpt"=="1" ]; then
             repositoryPath="$SVN_PARENT_PATH$response"
+            echo "Your choice [$repositoryPath]."
         else
             cd "The choice [$response] don't exist."
         fi
+        echo "$loopDpt"
     done
 
     #responseRepo=
@@ -175,23 +172,23 @@ if [ "$interactive" = "1" ]; then
         #svn mkdir trunk tags branches
         #svn commit -m"Creating basic directory structure"
         #cd "/"
-        echo "Creation of the repository structure [trunk, tags, branches]"      
-        structure_repository "svn$response.vls.local" $repository
+
+        echo "Creation of the repository structure [trunk, tags, branches]"
+        structure_repository "svn$response.vls.local" "$repository"
 
         echo "Creation of the authz file : [$repositoryPath/$repository]"
-        conf_authz $repository "$repositoryPath/$repository"
+        conf_authz "$repositoryPath/$repository" "$repository"
 
         echo "Change mod (770) for the repository"
         chmod 770 -R "$repositoryPath/$repository"
 
         echo "Change owner (www-data) to the repository"
         chown www-data:www-data -R "$repositoryPath/$repository"
-        
+
         echo "Repository and subfolders created successfully."
         echo "$TIME_STAMP"
-        
+
     fi
 fi
-
 
 exit 0
