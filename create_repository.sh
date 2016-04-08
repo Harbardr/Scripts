@@ -109,7 +109,7 @@ interactive=1
 #filename=
 repository=
 
-echo -e "\e[1;100;4m$TITLE\e[49m"
+echo -e "\e[1;100;4m$TITLE\e[49m\e[0m"
 
 
 while [ "$1" != "" ]; do
@@ -130,7 +130,7 @@ done
 
 # Test code to verify command line processing
 if [ "$interactive" = "1" ]; then
-    echo -e "Waiting for the repository [\e[91;4m$repository\e[49m] creation."
+    echo -e "Waiting for the repository [\e[91m$repository\e[0m] creation."
     loopDpt="0"
     while [ "$loopDpt" -eq "0" ]; do
         response=
