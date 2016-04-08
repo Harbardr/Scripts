@@ -10,7 +10,7 @@ SVN_PARENT_PATH="/mnt/biomsvn/"
 function conf_authz
 {
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
-    rm $OUTFILE
+    #rm $OUTFILE
     # ----------------------------------------------------------
     # 'The document containing the body of the authz.
     (
@@ -68,11 +68,11 @@ _EOF_
     #  This permits outputting literal strings in the output file.
     if [ -f "$OUTFILE" ]; then
         #chmod 770 $OUTFILE
-        echo "creating file: \"$OUTFILE\""
+        echo -e "creating file: \e[92m\"$OUTFILE\"\e[0m"
         #ls -al "$1/conf"
     # Make the generated file executable.
     else
-        echo "Problem in creating file: \"$OUTFILE\""
+        echo -e "\e[92mProblem\e[0m in creating file: \e[91m\"$OUTFILE\"\e[0m"
     fi
 }
 
@@ -85,7 +85,7 @@ function structure_repository
 {
     url=http://$1
     #echo "svn mkdir $url/$2/trunk -m \"Creating basic directory structure [trunk]\" --parents"
-    echo "Creating basic directory structure [trunk, tags, branches]"
+    echo -e "Creation of the repository [\e[92m$repositoryPath/$repository\e[0m] structure"
     svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" -m "Creating basic directory structure [trunk, tags, branches]" --parents
     #svn mkdir $url/$2/trunk -m "Creating basic directory structure [trunk]" --parents
     #echo "svn mkdir $url/$2/branches -m \"Creating basic directory structure [tags]\" --parents"
@@ -96,9 +96,9 @@ function structure_repository
 
 function change_rights
 {
-    echo "Change mod (770) [$1]"
+    echo "Change mod (770) [\e[92m$1\e[0m]"
     chmod 770 -R "$1"
-    echo "Change owner (www-data) [$1]"
+    echo "Change owner (www-data) [\e[92m$1\e[0m]"
     chown www-data:www-data -R "$1"
     echo ""
 }
@@ -182,7 +182,6 @@ if [ "$interactive" = "1" ]; then
         echo -e "This repository [\e[91m$repositoryPath/$repository\e[0m] already exists."
         exit 1
     else
-        echo -e "Creation of the repository [\e[92m$repositoryPath/$repository\e[0m]"
         svnadmin create "$repositoryPath/$repository"
         echo ""
         #cd "$repositoryPath/$repository"
