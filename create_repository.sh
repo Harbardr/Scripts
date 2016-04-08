@@ -109,8 +109,8 @@ interactive=1
 #filename=
 repository=
 
+echo ""
 echo -e "\e[1;100;4m$TITLE\e[49m\e[0m"
-
 
 while [ "$1" != "" ]; do
     case $1 in
