@@ -8,7 +8,7 @@ SVN_PARENT_PATH="/mnt/biomsvn/"
 function conf_authz
 {
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
-    # -----------------------------------------------------------
+    # ----------------------------------------------------------
     # 'The document containing the body of the authz.
     (
     cat <<- EOF
