@@ -210,6 +210,7 @@ if [ "$interactive" = "1" ]; then
         fi
         echo ""
         echo -e "\e[1;100;4m$TIME_STAMP\e[49m\e[0m"
+        echo ""
     fi
 fi
 exit 0
