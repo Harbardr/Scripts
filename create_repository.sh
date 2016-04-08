@@ -1,9 +1,11 @@
 #!/bin/bash
+
 ##### Constants
 TITLE="SVN Repository Creation"
 RIGHT_NOW=$(date +"%x %r %Z")
 TIME_STAMP="Updated on $RIGHT_NOW by $USER"
 SVN_PARENT_PATH="/mnt/biomsvn/"
+
 ##### Functions
 function conf_authz
 {
@@ -27,32 +29,32 @@ function conf_authz
     chariz = cleo.hariz
     nbraquet = nelly.braquet
     smainard = sandrine.mainard
-    
+
     [groups]
     stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
     data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
     all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
-    
+
     [/]
     * = r
     &jfern = rw
     &hsantinjanin = rw
-    
+
     [$2:/]
     * =
     &jfern = rw
     &hsantinjanin = rw
-    
+
     [$2:/trunk]
     * =
     &jfern = rw
     &hsantinjanin = rw
-    
+
     [$2:/tags]
     * =
     &jfern = rw
     &hsantinjanin = rw
-    
+
     [$2:/branches]
     * =
     &jfern = rw
