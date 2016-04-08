@@ -1,7 +1,8 @@
 .\" Manpage for create_repository.
 .\" Contact julien.fernandez@venncro.com to correct errors or typos.
 .TH CREATE_REPOSITORY 1 "April 08, 2016" "Version 1.0" "create_repository Manual"
-.SH NAME create_repository \- create a new SVN repository and associated structure
+.SH NAME 
+create_repository \- create a new SVN repository and associated structure
 .SH SYNOPSIS
 create_repository [[[\fB-r\fP repository ] [\fB-i\fP]] | [\fB-h\fP]]
 .SH DESCRIPTION
