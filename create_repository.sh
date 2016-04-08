@@ -109,7 +109,7 @@ interactive=1
 #filename=
 repository=
 
-echo -e "\e[100m$TITLE"
+echo -e "\e[1;100;4m$TITLE"
 
 
 while [ "$1" != "" ]; do
@@ -130,7 +130,7 @@ done
 
 # Test code to verify command line processing
 if [ "$interactive" = "1" ]; then
-    echo "Waiting for the repository [$repository] creation."
+    echo -e "Waiting for the repository [\e[91;4m$repository\e[21m] creation."
     loopDpt="0"
     while [ "$loopDpt" -eq "0" ]; do
         response=
@@ -164,9 +164,9 @@ if [ "$interactive" = "1" ]; then
         fi
         if [ "$loopDpt"=="1" ]; then
             repositoryPath="$SVN_PARENT_PATH$response"
-            echo "Your choice [$repositoryPath]."
+            echo "Your choice [\e[91;4m$repositoryPath\e[21m]."
         else
-            cd "The choice [$response] don't exist."
+            cd "The choice [\e[91;4m$response\e[21m] don't exist."
         fi
         #echo "$loopDpt"
     done
