@@ -67,6 +67,8 @@ _EOF_
     #  This permits outputting literal strings in the output file.
     if [ -f "$OUTFILE" ]; then
         chmod 770 $OUTFILE
+        echo "creating file: \"$OUTFILE\""
+        ll "$1/conf"
     # Make the generated file executable.
     else
         echo "Problem in creating file: \"$OUTFILE\""
