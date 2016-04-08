@@ -79,6 +79,7 @@ _EOF_
 function usage
 {
     echo "usage: create_repository [[[-r repository ] [-i]] | [-h]]"
+    echo ""
 }
 
 function structure_repository
