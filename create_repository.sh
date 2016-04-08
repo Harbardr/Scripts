@@ -114,6 +114,7 @@ repository=
 echo ""
 echo -e "\e[1;100;4m$TITLE\e[49m\e[0m"
 
+if 
 while [ "$1" != "" ]; do
     case $1 in
         -r | --repository )     shift
@@ -130,7 +131,7 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ "$1" = "" ]; then
+if [ "$1" -eq "" ]; then
     usage
     exit 1
 fi
