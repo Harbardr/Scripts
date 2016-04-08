@@ -19,10 +19,11 @@ Specify if the command is interactive or not.
 \fB-h\fP
 help for the command.
 .br
+.TP
 \fINote:\fP beware that choosing '\fB-i\fP'.
 .SH EXEMPLES
 \fBcreate_repository -r\fP \fIVP000X\fR
-Create the repository for the study \fIVP000X\fR.
+Create the repository for the study \fIVP000X.\fR
 .TP
 \fBcreate_repository -h\fP
 Display the usage of the command.
