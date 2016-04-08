@@ -96,9 +96,9 @@ function structure_repository
 
 function change_rights
 {
-    echo "Change mod (770) for the repository"
+    echo "Change mod (770) [$1]"
     chmod 770 -R "$1"
-    echo "Change owner (www-data) to the repository"
+    echo "Change owner (www-data) [$1]"
     chown www-data:www-data -R "$1"
     echo ""
 }
