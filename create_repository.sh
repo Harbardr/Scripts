@@ -83,10 +83,32 @@ function usage
     echo ""
 }
 
-function structure_repository
+function structure_repository 
 {
     url=http://$1
     echo -e "Creation of the repository [\e[92m$3\e[0m] structure"
+    if [ -n "$4" ]; then
+        case $response in
+            "1" )
+                response="biomdev"
+                loopDpt="1"
+                ;;
+            "2" )
+                response="datadev"
+                loopDpt="1" ;;
+            "3" )
+                response="data"
+                loopDpt="1" ;;
+            "4" )
+               response="statdev"
+                loopDpt="1" ;;
+            "5" )
+                response="stat"
+                loopDpt="1" ;;
+        esac
+    fi
+    
+    
     svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" -m "Creating basic directory structure [trunk, tags, branches]" --parents
     if [ -d "$3" ]; then
         echo -e "Repository and subfolders created \e[92;4msuccessfully\e[0;24m."
