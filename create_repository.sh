@@ -108,6 +108,10 @@ clear
 interactive=1
 #filename=
 repository=
+
+echo -e "\e[100m$TITLE"
+
+
 while [ "$1" != "" ]; do
     case $1 in
         -r | --repository )     shift
@@ -192,6 +196,7 @@ if [ "$interactive" = "1" ]; then
         
         change_rights "$repositoryPath/$repository"
         service apache2 restart
+        echo ""
         
         echo "Creation of the repository structure [trunk, tags, branches]"
         structure_repository "svn$response.vls.local" "$repository"
