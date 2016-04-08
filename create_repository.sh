@@ -130,12 +130,6 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ -n "$1" ]; then
-    interactive=1
-else
-    usage
-    exit 1
-fi
 
 # Test code to verify command line processing
 if [ "$interactive" = "1" ]; then
