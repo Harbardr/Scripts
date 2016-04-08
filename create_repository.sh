@@ -11,7 +11,7 @@ function conf_authz
     # ----------------------------------------------------------
     # 'The document containing the body of the authz.
     (
-    cat <<- EOF
+    cat <<- _EOF_
 [aliases]
 jfern = julien.fernandez
 hsantinjanin = hugues.santinjanin
@@ -57,7 +57,7 @@ all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&
 * =
 &jfern = rw
 &hsantinjanin = rw
-EOF
+_EOF_
     ) > $OUTFILE
     # -----------------------------------------------------------
     #  Quoting the 'limit string' prevents variable expansion
