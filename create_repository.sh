@@ -130,6 +130,10 @@ while [ "$1" != "" ]; do
     shift
 done
 
+if ["$1" eq ""]; then
+    usage
+    exit 1
+
 # Test code to verify command line processing
 if [ "$interactive" = "1" ]; then
     echo -e "Waiting for the repository [\e[92m$repository\e[0m] creation."
