@@ -132,6 +132,7 @@ while [ "$1" != "" ]; do
 done
 
 if [ -n $1 ]; then
+    interactive=1
 else
     usage
     exit 1
