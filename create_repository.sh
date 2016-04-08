@@ -86,7 +86,7 @@ function structure_repository
     url=http://$1
     #echo "svn mkdir $url/$2/trunk -m \"Creating basic directory structure [trunk]\" --parents"
     echo "Creating basic directory structure [trunk, tags, branches]"
-    svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure [trunk, tags, branches]" --parents
+    svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" -m "Creating basic directory structure [trunk, tags, branches]" --parents
     #svn mkdir $url/$2/trunk -m "Creating basic directory structure [trunk]" --parents
     #echo "svn mkdir $url/$2/branches -m \"Creating basic directory structure [tags]\" --parents"
     #svn mkdir $url/$2/branches -m "Creating basic directory structure [tags]" --parents
@@ -190,6 +190,7 @@ if [ "$interactive" = "1" ]; then
         conf_authz "$repositoryPath/$repository" "$repository"
         echo ""
         
+        change_rights "$repositoryPath/$repository"
         service apache2 restart
         
         echo "Creation of the repository structure [trunk, tags, branches]"
