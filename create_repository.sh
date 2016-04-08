@@ -86,14 +86,14 @@ function usage
 function structure_repository
 {
     url=http://$1
-    #echo "svn mkdir $url/$2/trunk -m \"Creating basic directory structure [trunk]\" --parents"
-    echo -e "Creation of the repository [\e[92m$repositoryPath/$repository\e[0m] structure"
+    echo -e "Creation of the repository [\e[92m$3\e[0m] structure"
     svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" -m "Creating basic directory structure [trunk, tags, branches]" --parents
-    #svn mkdir $url/$2/trunk -m "Creating basic directory structure [trunk]" --parents
-    #echo "svn mkdir $url/$2/branches -m \"Creating basic directory structure [tags]\" --parents"
-    #svn mkdir $url/$2/branches -m "Creating basic directory structure [tags]" --parents
-    #echo "svn mkdir $url/$2/tags -m \"Creating basic directory structure [branches]\" --parents"
-    #svn mkdir $url/$2/tags -m "Creating basic directory structure [branches]" --parents
+    if [ -d "$3" ]; then
+        echo -e "Repository and subfolders created \e[92;4msuccessfully\e[0;24m."
+    else
+        echo -e "\e[91;4mProblem\e[0;24m during creation of the Repository and subfolders."
+    fi
+    
 }
 
 function change_rights
@@ -170,15 +170,7 @@ if [ "$interactive" = "1" ]; then
         else
             cd -e "The choice [\e[91m$response\e[0m] don't exist."
         fi
-        #echo "$loopDpt"
     done
-
-    #responseRepo=
-    #echo -n "Enter the name of the [$repository] > "
-    #read responseRepo
-    #if [ -n "$responseRepo" ]; then
-    #    repository=$responseRepo
-    #fi
 
     if [ -d "$repositoryPath/$repository" ]; then
         echo -e "This repository [\e[91m$repositoryPath/$repository\e[0m] already exists."
@@ -186,10 +178,6 @@ if [ "$interactive" = "1" ]; then
     else
         svnadmin create "$repositoryPath/$repository"
         echo ""
-        #cd "$repositoryPath/$repository"
-        #svn mkdir trunk tags branches
-        #svn commit -m"Creating basic directory structure"
-        #cd "/"
         
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
         conf_authz "$repositoryPath/$repository" "$repository"
@@ -199,17 +187,16 @@ if [ "$interactive" = "1" ]; then
         service apache2 restart
         echo ""
         
-        echo -e "Creation of the repository structure [\e[96mtrunk, tags, branches\e[0m]"
-        structure_repository "svn$response.vls.local" "$repository"
-        echo ""
-        
-        change_rights "$repositoryPath/$repository"
-        
-        if [ -d "$repositoryPath/$repository" ]; then
-            echo -e "Repository and subfolders created \e[92;4msuccessfully\e[0;24m."
+        if [ -d "$repositoryPath/$repository/trunk" || -d "$repositoryPath/$repository/tags" || -d "$repositoryPath/$repository/branches"]; then
+            echo -e "The repository structure [\e[91m$repositoryPath/$repository/(trunk|tags|branches)\e[0m] already exists."
+            echo ""
         else
-            echo -e "\e[91;4mProblem\e[0;24m during creation of the Repository and subfolders."
+            echo -e "Creation of the repository structure [\e[96mtrunk, tags, branches\e[0m]"
+            structure_repository "svn$response.vls.local" "$repository" "$repositoryPath/$repository"
+            echo ""
+            change_rights "$repositoryPath/$repository"
         fi
+
         echo ""
         echo -e "\e[1;100;4m$TIME_STAMP\e[49m\e[0m"
         echo ""
