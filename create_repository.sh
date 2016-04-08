@@ -88,7 +88,7 @@ function usage
 function structure_repository
 {
     url=svn://$1
-    svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure" --parents
+    svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure [trunk, tags, branches]" --parents
 }
 
 ##### Main
@@ -136,19 +136,19 @@ if [ "$interactive" = "1" ]; then
             case $response in
                 "1" )
                     response="biomdev" 
-                    loopDpt=1;;
+                    loopDpt=1 ;;
                 "2" )
                     response="datadev"
-                    loopDpt=1;;
+                    loopDpt=1 ;;
                 "3" )
                     response="data" 
-                    loopDpt=1;;
+                    loopDpt=1 ;;
                 "4" )
                     response="statdev"
-                    loopDpt=1;;
+                    loopDpt=1 ;;
                 "5" )
                     response="stat"
-                    loopDpt=1;;
+                    loopDpt=1 ;;
             esac
         fi
         if [ "$loopDpt"=="1" ]
@@ -168,22 +168,27 @@ if [ "$interactive" = "1" ]; then
     if [ -d "$repositoryPath/$repository" ]; then
         echo "This repository [$repositoryPath/$repository] already exists."
     else
-        echo "Creation of the repository [$repositoryPath/$repository]"
+        echo "Creation of the repository [$repositoryPath/$repositoryyy]"
         svnadmin create "$repositoryPath/$repository"
 
         #cd "$repositoryPath/$repository"
         #svn mkdir trunk tags branches
         #svn commit -m"Creating basic directory structure"
         #cd "/"
-
+        echo "Creation of the repository structure [trunk, tags, branches]"      
         structure_repository "svn$response.vls.local" $repository
 
         echo "Creation of the authz file : [$repositoryPath/$repository]"
         conf_authz $repository "$repositoryPath/$repository"
+
         echo "Change mod (770) for the repository"
         chmod 770 -R "$repositoryPath/$repository"
+
         echo "Change owner (www-data) to the repository"
         chown www-data:www-data -R "$repositoryPath/$repository"
+        
+        echo "Repository and subfolders created successfully."
+        echo "$TIME_STAMP"
         
     fi
 fi
