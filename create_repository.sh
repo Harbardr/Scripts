@@ -62,12 +62,10 @@ all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&
 &hsantinjanin = rw
 EOF
     ) > $OUTFILE
-
     # -----------------------------------------------------------
     #  Quoting the 'limit string' prevents variable expansion
     #+ within the body of the above 'here document.'
     #  This permits outputting literal strings in the output file.
-
     if [ -f "$OUTFILE" ]; then
         chmod 770 $OUTFILE
     # Make the generated file executable.
@@ -81,7 +79,6 @@ function usage
     echo "usage: create_repository [[[-r repository ] [-i]] | [-h]]"
 }
 
-
 function structure_repository
 {
     url=svn://$1
@@ -89,11 +86,9 @@ function structure_repository
 }
 
 ##### Main
-
 interactive=1
 #filename=
 repository=
-
 while [ "$1" != "" ]; do
     case $1 in
         -r | --repository )     shift
@@ -110,9 +105,7 @@ while [ "$1" != "" ]; do
     shift
 done
 
-
 # Test code to verify command line processing
-
 if [ "$interactive" = "1" ]; then
     echo "Waiting for the repository [$repository] creation."
     loopDpt="0"
@@ -172,23 +165,21 @@ if [ "$interactive" = "1" ]; then
         #svn mkdir trunk tags branches
         #svn commit -m"Creating basic directory structure"
         #cd "/"
-
+        
         echo "Creation of the repository structure [trunk, tags, branches]"
         structure_repository "svn$response.vls.local" "$repository"
-
+        
         echo "Creation of the authz file : [$repositoryPath/$repository]"
         conf_authz "$repositoryPath/$repository" "$repository"
-
+        
         echo "Change mod (770) for the repository"
         chmod 770 -R "$repositoryPath/$repository"
-
+        
         echo "Change owner (www-data) to the repository"
         chown www-data:www-data -R "$repositoryPath/$repository"
-
+        
         echo "Repository and subfolders created successfully."
         echo "$TIME_STAMP"
-
     fi
 fi
-
 exit 0
