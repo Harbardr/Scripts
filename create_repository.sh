@@ -10,6 +10,7 @@ SVN_PARENT_PATH="/mnt/biomsvn/"
 function conf_authz
 {
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
+    rm $OUTFILE
     # ----------------------------------------------------------
     # 'The document containing the body of the authz.
     (
@@ -68,7 +69,7 @@ _EOF_
     if [ -f "$OUTFILE" ]; then
         chmod 770 $OUTFILE
         echo "creating file: \"$OUTFILE\""
-        ll "$1/conf"
+        ls -al "$1/conf"
     # Make the generated file executable.
     else
         echo "Problem in creating file: \"$OUTFILE\""
