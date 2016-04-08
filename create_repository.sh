@@ -1,12 +1,9 @@
 #!/bin/bash
-
-
 ##### Constants
 TITLE="SVN Repository Creation"
 RIGHT_NOW=$(date +"%x %r %Z")
 TIME_STAMP="Updated on $RIGHT_NOW by $USER"
 SVN_PARENT_PATH="/mnt/biomsvn/"
-
 ##### Functions
 function conf_authz
 {
