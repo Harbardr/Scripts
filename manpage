@@ -1,8 +1,7 @@
 .\" Manpage for create_repository.
 .\" Contact julien.fernandez@venncro.com to correct errors or typos.
-.TH man 8 "08 APR 2016" "1.0" "create_repository man page"
-.SH NAME
-create_repository \- create a new SVN repository and associated structure
+.TH CREATE_REPOSITORY 1 "April 08, 2016" "Version 1.0" "create_repository Manual"
+.SH NAME create_repository \- create a new SVN repository and associated structure
 .SH SYNOPSIS
 create_repository [[[\fB-r\fP repository ] [\fB-i\fP]] | [\fB-h\fP]]
 .SH DESCRIPTION
@@ -21,8 +20,8 @@ help for the command.
 .br
 \fINote:\fP beware that choosing '\fB-i\fP'.
 .SH EXEMPLES
-\fBcreate_repository -r\fP \fIVP000X\fP
-Create the repository for the study \fIVP000X\fP.
+\fBcreate_repository -r\fP \fIVP000X\fR
+Create the repository for the study \fIVP000X\fR.
 .TP
 \fBcreate_repository -h\fP
 Display the usage of the command.
