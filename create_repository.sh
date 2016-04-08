@@ -12,51 +12,51 @@ function conf_authz
     # 'The document containing the body of the authz.
     (
     cat <<- _EOF_
-[aliases]
-jfern = julien.fernandez
-hsantinjanin = hugues.santinjanin
-acosta = adeline.costa
-alari = alberth.lari
-atourneroche = alice.tourneroche
-danbarasu = dhiwakar.anbarasu
-epauwels = elodie.pauwels
-faubin = francois.aubin
-iackermann = isabelle.ackermann
-lhannouche = linda.hannouche
-mmonnereau = magalie.monnereau
-chariz = cleo.hariz
-nbraquet = nelly.braquet
-smainard = sandrine.mainard
-
-[groups]
-stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
-data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
-all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
-
-[/]
-* = r
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/]
-* =
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/trunk]
-* =
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/tags]
-* =
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/branches]
-* =
-&jfern = rw
-&hsantinjanin = rw
+    [aliases]
+    jfern = julien.fernandez
+    hsantinjanin = hugues.santinjanin
+    acosta = adeline.costa
+    alari = alberth.lari
+    atourneroche = alice.tourneroche
+    danbarasu = dhiwakar.anbarasu
+    epauwels = elodie.pauwels
+    faubin = francois.aubin
+    iackermann = isabelle.ackermann
+    lhannouche = linda.hannouche
+    mmonnereau = magalie.monnereau
+    chariz = cleo.hariz
+    nbraquet = nelly.braquet
+    smainard = sandrine.mainard
+    
+    [groups]
+    stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
+    data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
+    all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
+    
+    [/]
+    * = r
+    &jfern = rw
+    &hsantinjanin = rw
+    
+    [$2:/]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
+    
+    [$2:/trunk]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
+    
+    [$2:/tags]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
+    
+    [$2:/branches]
+    * =
+    &jfern = rw
+    &hsantinjanin = rw
 _EOF_
     ) > $OUTFILE
     # -----------------------------------------------------------
