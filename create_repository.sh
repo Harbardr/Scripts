@@ -130,7 +130,7 @@ done
 
 # Test code to verify command line processing
 if [ "$interactive" = "1" ]; then
-    echo -e "Waiting for the repository [\e[91m$repository\e[0m] creation."
+    echo -e "Waiting for the repository [\e[92m$repository\e[0m] creation."
     loopDpt="0"
     while [ "$loopDpt" -eq "0" ]; do
         response=
@@ -164,9 +164,9 @@ if [ "$interactive" = "1" ]; then
         fi
         if [ "$loopDpt"=="1" ]; then
             repositoryPath="$SVN_PARENT_PATH$response"
-            echo "Your choice [\e[91m$repositoryPath\e[0m]."
+            echo -e "Your choice [\e[92m$repositoryPath\e[0m]."
         else
-            cd "The choice [\e[91m$response\e[0m] don't exist."
+            cd -e "The choice [\e[91m$response\e[0m] don't exist."
         fi
         #echo "$loopDpt"
     done
@@ -179,10 +179,10 @@ if [ "$interactive" = "1" ]; then
     #fi
 
     if [ -d "$repositoryPath/$repository" ]; then
-        echo "This repository [$repositoryPath/$repository] already exists."
+        echo -e "This repository [\e[91m$repositoryPath/$repository\e[0m] already exists."
         exit 1
     else
-        echo "Creation of the repository [$repositoryPath/$repositoryyy]"
+        echo -e "Creation of the repository [\e[92m$repositoryPath/$repository\e[0m]"
         svnadmin create "$repositoryPath/$repository"
         echo ""
         #cd "$repositoryPath/$repository"
@@ -190,7 +190,7 @@ if [ "$interactive" = "1" ]; then
         #svn commit -m"Creating basic directory structure"
         #cd "/"
         
-        echo "Creation of the authz file : [$repositoryPath/$repository]"
+        echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
         conf_authz "$repositoryPath/$repository" "$repository"
         echo ""
         
@@ -198,15 +198,19 @@ if [ "$interactive" = "1" ]; then
         service apache2 restart
         echo ""
         
-        echo "Creation of the repository structure [trunk, tags, branches]"
+        echo -e "Creation of the repository structure [\e[96mtrunk, tags, branches\e[0m]"
         structure_repository "svn$response.vls.local" "$repository"
         echo ""
         
         change_rights "$repositoryPath/$repository"
         
-        echo "Repository and subfolders created successfully."
+        if [ -d "$repositoryPath/$repository" ]; then
+            echo -e "Repository and subfolders created \e[92;4msuccessfully\e[0;24m."
+        else
+            echo -e "\e[91;4mProblem\e[0;24m during creation of the Repository and subfolders."
+        fi
         echo ""
-        echo "$TIME_STAMP"
+        echo -e "\e[1;100;4m$TIME_STAMP\e[49m\e[0m"
     fi
 fi
 exit 0
