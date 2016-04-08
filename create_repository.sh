@@ -82,7 +82,10 @@ function structure_repository
 {
     url=http://$1
     echo "svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags"
-    svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure [trunk, tags, branches]" --parents
+    #svn mkdir $url/$2/trunk $url/$2/branches $url/$2/tags -m "Creating basic directory structure [trunk, tags, branches]" --parents
+    svn mkdir $url/$2/trunk -m "Creating basic directory structure [trunk]" --parents
+    svn mkdir $url/$2/branches -m "Creating basic directory structure [tags]" --parents
+    svn mkdir $url/$2/tags -m "Creating basic directory structure [branches]" --parents
 }
 
 ##### Main
