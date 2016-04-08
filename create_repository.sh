@@ -131,7 +131,8 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ -!n "$1" ]; then
+if [ -n $1 ]; then
+else
     usage
     exit 1
 fi
