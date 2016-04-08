@@ -23,6 +23,7 @@ help for the command.
 .SH EXEMPLES
 \fBcreate_repository -r\fP \fIVP000X\fP
 Create the repository for the study \fIVP000X\fP.
+.TP
 \fBcreate_repository -h\fP
 Display the usage of the command.
 .SH SEE ALSO
