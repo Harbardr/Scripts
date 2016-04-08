@@ -96,9 +96,9 @@ function structure_repository
 
 function change_rights
 {
-    echo "Change mod (770) [\e[92m$1\e[0m]"
+    echo -e "Change mod (770) [\e[92m$1\e[0m]"
     chmod 770 -R "$1"
-    echo "Change owner (www-data) [\e[92m$1\e[0m]"
+    echo -e "Change owner (www-data) [\e[92m$1\e[0m]"
     chown www-data:www-data -R "$1"
     echo ""
 }
