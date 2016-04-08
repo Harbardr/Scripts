@@ -93,7 +93,6 @@ function structure_repository
     else
         echo -e "\e[91;4mProblem\e[0;24m during creation of the Repository and subfolders."
     fi
-    
 }
 
 function change_rights
@@ -131,7 +130,7 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ -n $1 ]; then
+if [ -n "$1" ]; then
     interactive=1
 else
     usage
