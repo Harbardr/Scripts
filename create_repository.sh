@@ -133,6 +133,7 @@ done
 if [ "$1" = "" ]; then
     usage
     exit 1
+fi
 
 # Test code to verify command line processing
 if [ "$interactive" = "1" ]; then
