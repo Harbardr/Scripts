@@ -172,11 +172,12 @@ if [ "$interactive" = "1" ]; then
         #svn commit -m"Creating basic directory structure"
         #cd "/"
         
-        echo "Creation of the repository structure [trunk, tags, branches]"
-        structure_repository "svn$response.vls.local" "$repository"
-        
         echo "Creation of the authz file : [$repositoryPath/$repository]"
         conf_authz "$repositoryPath/$repository" "$repository"
+        service apache2 restart
+        
+        echo "Creation of the repository structure [trunk, tags, branches]"
+        structure_repository "svn$response.vls.local" "$repository"
         
         echo "Change mod (770) for the repository"
         chmod 770 -R "$repositoryPath/$repository"
