@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 ##### Constants
 TITLE="SVN Repository Creation"
 RIGHT_NOW=$(date +"%x %r %Z")
@@ -85,6 +86,7 @@ function structure_repository
 }
 
 ##### Main
+
 interactive=1
 #filename=
 repository=
