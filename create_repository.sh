@@ -86,7 +86,7 @@ function structure_repository
 }
 
 ##### Main
-
+clear
 interactive=1
 #filename=
 repository=
