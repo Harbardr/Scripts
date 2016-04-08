@@ -130,7 +130,7 @@ while [ "$1" != "" ]; do
     shift
 done
 
-if [ "$1" == "" ]; then
+if [ "$1" = "" ]; then
     usage
     exit 1
 
