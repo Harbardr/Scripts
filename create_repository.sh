@@ -95,8 +95,8 @@ function template_authz
         echo -e "\e[92mProblem\e[0m in creating file: \e[91m\"$OUTFILE\"\e[0m"
     fi
     sed -i.bak "s/PROJECT_TEMPLATE/$PROJECT_TEMPLATE/g" $OUTFILE
-    sed -i.bak "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
-    sed -i.bak "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
+    sed -i.bak 's|LEAD_TEMPLATE|$LEAD_TEMPLATE|g' $OUTFILE
+    sed -i.bak 's|SUB_TEMPLATE|$SUB_TEMPLATE|g' $OUTFILE
     rm "$2.bak"
 }
 
