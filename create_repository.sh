@@ -87,7 +87,7 @@ function template_authz
     LEAD_TEMPLATE="\\&${LEAD_TEMPLATE//,/,\\&}"
     SUB_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
     
-    USERS_FILE="cat users.list"
+    USERS_FILE='cat "users.list'
     
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
