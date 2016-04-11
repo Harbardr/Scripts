@@ -85,7 +85,7 @@ function template_authz
     SUB_TEMPLATE="$5"
     
     LEAD_TEMPLATE="\\&${LEAD_TEMPLATE//,/,\\&}"
-    LEAD_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
+    SUB_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
     
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
