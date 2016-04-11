@@ -160,7 +160,7 @@ clear
 interactive=1
 #filename=
 repository=
-users_list = "users.list"
+users_list="users.list"
 
 echo ""
 echo -e "\e[1;100;4m$TITLE\e[49m\e[0m"
