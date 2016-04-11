@@ -110,14 +110,14 @@ function structure_repository
 {
     local url=http://$1
     echo -e "Creation of the repository [\e[92m$3\e[0m] structure"
-    if [ -n "$2" ]; then
-        if [ "$2" -eq "biomdev" ]; then
+    if [ -n "$4" ]; then
+        if [ "$4"=="biomdev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory structure [trunk, tags, branches]" --parents
-        elif [ "$2" -eq "datadev" ]; then
+        elif [ "$4"=="datadev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory structure [trunk, tags, branches]" --parents
-        elif [ "$2" -eq "data" ]; then
+        elif [ "$4"=="data" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 "$url/$2/trunk/data_base" "$url/$2/trunk/data_base/edc" "$url/$2/trunk/data_base/lock" "$url/$2/trunk/data_base/main" "$url/$2/trunk/data_base/pgm" \
                 "$url/$2/trunk/data_cleaning" "$url/$2/trunk/data_cleaning/ec" "$url/$2/trunk/data_cleaning/listings" "$url/$2/trunk/data_cleaning/sec" \
@@ -127,10 +127,10 @@ function structure_repository
                 "$url/$2/trunk/reporting" \
                 "$url/$2/trunk/sae_rec" "$url/$2/trunk/sae_rec/pgm" "$url/$2/trunk/sae_rec/source" \
                 -m "Creating basic directory structure [trunk, tags, branches]" --parents
-        elif [ "$2" -eq "statdev" ]; then
+        elif [ "$4"=="statdev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory structure [trunk, tags, branches]" --parents
-        elif [ "$2" -eq "stat" ]; then
+        elif [ "$4"=="stat" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory structure [trunk, tags, branches]" --parents
         fi
@@ -308,7 +308,7 @@ if [ "$interactive" = "1" ]; then
             echo ""
         else
             echo -e "Creation of the repository structure [\e[96mtrunk, tags, branches\e[0m]"
-            structure_repository "svn$response.vls.local" "$repository" "$repositoryPath/$repository"
+            structure_repository "svn$response.vls.local" "$repository" "$repositoryPath/$repository"  "$response"
             echo ""
             change_rights "$repositoryPath/$repository"
         fi
