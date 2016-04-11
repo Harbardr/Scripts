@@ -117,7 +117,7 @@ function structure_repository
         elif [ "$4"=="datadev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory \e[92;4mdatadev\e[0;24m structure [trunk, tags, branches]" --parents
-        elif [ "$4"=="data" ]; then
+        elif [ "$4" -eq "data" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 "$url/$2/trunk/data_base" "$url/$2/trunk/data_base/edc" "$url/$2/trunk/data_base/lock" "$url/$2/trunk/data_base/main" "$url/$2/trunk/data_base/pgm" \
                 "$url/$2/trunk/data_cleaning" "$url/$2/trunk/data_cleaning/ec" "$url/$2/trunk/data_cleaning/listings" "$url/$2/trunk/data_cleaning/sec" \
