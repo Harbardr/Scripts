@@ -245,7 +245,7 @@ if [ "$interactive" = "1" ]; then
         service apache2 restart
         echo ""
         
-        if [ -d "$repositoryPath/$repository/trunk" || -d "$repositoryPath/$repository/tags" || -d "$repositoryPath/$repository/branches"]; then
+        if [ -d "$repositoryPath/$repository/trunk" || -d "$repositoryPath/$repository/tags" || -d "$repositoryPath/$repository/branches" ]; then
             echo -e "The repository structure [\e[91m$repositoryPath/$repository/(trunk|tags|branches)\e[0m] already exists."
             echo ""
         else
