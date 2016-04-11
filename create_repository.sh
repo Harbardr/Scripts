@@ -113,10 +113,10 @@ function structure_repository
     if [ -n "$4" ]; then
         if [ "$4"=="biomdev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
-                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+                -m "Creating basic directory \e[92;4mbiomdev\e[0;24m structure [trunk, tags, branches]" --parents
         elif [ "$4"=="datadev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
-                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+                -m "Creating basic directory \e[92;4mdatadev\e[0;24m structure [trunk, tags, branches]" --parents
         elif [ "$4"=="data" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 "$url/$2/trunk/data_base" "$url/$2/trunk/data_base/edc" "$url/$2/trunk/data_base/lock" "$url/$2/trunk/data_base/main" "$url/$2/trunk/data_base/pgm" \
@@ -126,15 +126,16 @@ function structure_repository
                 "$url/$2/trunk/data_review" "$url/$2/trunk/data_review/datasets" "$url/$2/trunk/data_review/listings" "$url/$2/trunk/data_review/pgm" \
                 "$url/$2/trunk/reporting" \
                 "$url/$2/trunk/sae_rec" "$url/$2/trunk/sae_rec/pgm" "$url/$2/trunk/sae_rec/source" \
-                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+                -m "Creating basic directory \e[92;4mdata\e[0;24m structure [trunk, tags, branches]" --parents
         elif [ "$4"=="statdev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
-                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+                -m "Creating basic directory \e[92;4mstatdev\e[0;24m structure [trunk, tags, branches]" --parents
         elif [ "$4"=="stat" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
-                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+                -m "Creating basic directory \e[92;4mstat\e[0;24m structure [trunk, tags, branches]" --parents
         fi
     else
+        echo -e "\e[91;4mProblem\e[0;24m during creation of the Repository and subfolders."
         svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
         -m "Creating basic directory structure [trunk, tags, branches]" --parents
     fi
@@ -308,7 +309,7 @@ if [ "$interactive" = "1" ]; then
             echo ""
         else
             echo -e "Creation of the repository structure [\e[96mtrunk, tags, branches\e[0m]"
-            structure_repository "svn$response.vls.local" "$repository" "$repositoryPath/$repository"  "$response"
+            structure_repository "svn$response.vls.local" "$repository" "$repositoryPath/$repository" "$response"
             echo ""
             change_rights "$repositoryPath/$repository"
         fi
