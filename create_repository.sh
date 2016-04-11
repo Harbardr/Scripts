@@ -266,9 +266,11 @@ if [ "$interactive" = "1" ]; then
             loopList=0
             arrayUsers=()
             while IFS='=' read -r -a input; do
-                printf "    %s:%s(%d)\n" "${input[0]}" "${input[1]}" $loopList
-                arrayUsers=("${arrayUsers[@]}" "${input[0]}")
-                ((loopList+=1))
+                if [ -n "${input[0]}" ];then
+                    printf "    %s:%s(%d)\n" "${input[0]}" "${input[1]}" $loopList
+                    arrayUsers=("${arrayUsers[@]}" "${input[0]}")
+                    ((loopList+=1))
+                fi
             done < "$users_list"
             echo -n "Enter your choice > "
             read response
@@ -278,11 +280,11 @@ if [ "$interactive" = "1" ]; then
                     for i in "${RESP[@]}"; do
                         # process "$i"
                         #printf "    %s:%s\n" "${RESP[$i]}" "${arrayUsers[${RESP[$i]}]}"
-                        printf "    %d:%s\n" "$i" "${arrayUsers[${RESP[$((i))]}]}"
+                        printf "    %d:%s:%s\n" "$i" "${arrayUsers[${RESP[$((i))]}]}" "${arrayUsers[((i))]}"
                     done
                 done <<< $response
-                printf "    %s\n" "${RESP[@]}"
-                printf "    %s\n" "${arrayUsers[@]}"
+                #printf "    %s\n" "${RESP[@]}"
+                echo "${arrayUsers[@]}"
                 #while IFS=',' read -r -a RESP; do
                 #    echo "${RESP[@]} ${arrayUsers[@]}"
                 #    lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
