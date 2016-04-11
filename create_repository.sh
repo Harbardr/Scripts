@@ -81,8 +81,8 @@ function template_authz
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
     TEMPLATE="$2"
     PROJECT_TEMPLATE="$3"
-    LEAD_TEMPLATE="$4"
-    SUB_TEMPLATE="$5"
+    LEAD_TEMPLATE="\\&$4"
+    SUB_TEMPLATE="\\&$5"
     
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
@@ -95,8 +95,8 @@ function template_authz
         echo -e "\e[92mProblem\e[0m in creating file: \e[91m\"$OUTFILE\"\e[0m"
     fi
     sed -i.bak "s/PROJECT_TEMPLATE/$PROJECT_TEMPLATE/g" $OUTFILE
-    sed -i.bak 's|LEAD_TEMPLATE|${LEAD_TEMPLATE}|g' $OUTFILE
-    sed -i.bak 's|SUB_TEMPLATE|${SUB_TEMPLATE}|g' $OUTFILE
+    sed -i.bak "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
+    sed -i.bak "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
     rm "$2.bak"
 }
 
@@ -238,7 +238,7 @@ if [ "$interactive" = "1" ]; then
         
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
         #conf_authz "$repositoryPath/$repository" "$repository"
-        template_authz "$repositoryPath/$repository" "$template" "$repository" "&jfern" "&hsantinjanin"
+        template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern" "hsantinjanin"
         echo ""
         
         change_rights "$repositoryPath/$repository"
