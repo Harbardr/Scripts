@@ -87,6 +87,8 @@ function template_authz
     LEAD_TEMPLATE="\\&${LEAD_TEMPLATE//,/,\\&}"
     SUB_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
     
+    USERS_FILE="cat users.list"
+    
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
     if [ -f "$OUTFILE" ]; then
@@ -97,10 +99,11 @@ function template_authz
     else
         echo -e "\e[92mProblem\e[0m in creating file: \e[91m\"$OUTFILE\"\e[0m"
     fi
-    sed -i.bak "s/PROJECT_TEMPLATE/$PROJECT_TEMPLATE/g" $OUTFILE
-    sed -i.bak "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
-    sed -i.bak "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
-    rm "$2.bak"
+    sed -i "s/PROJECT_TEMPLATE/$PROJECT_TEMPLATE/g" $OUTFILE
+    sed -i "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
+    sed -i "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
+    
+    sed -i "s/USERS_LIST/$USERS_FILE/g" $OUTFILE
 }
 
 function usage
