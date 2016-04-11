@@ -108,31 +108,37 @@ function usage
 
 function structure_repository 
 {
-    url=http://$1
+    local url=http://$1
     echo -e "Creation of the repository [\e[92m$3\e[0m] structure"
-    if [ -n "$4" ]; then
-        case $response in
-            "1" )
-                response="biomdev"
-                loopDpt="1"
-                ;;
-            "2" )
-                response="datadev"
-                loopDpt="1" ;;
-            "3" )
-                response="data"
-                loopDpt="1" ;;
-            "4" )
-               response="statdev"
-                loopDpt="1" ;;
-            "5" )
-                response="stat"
-                loopDpt="1" ;;
-        esac
+    if [ -n "$2" ]; then
+        if [ "$2" -eq "biomdev"]; then
+                svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
+                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+        elif [ "$2" -eq "datadev"]; then
+                svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
+                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+        elif [ "$2" -eq "data"]; then
+                svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
+                "$url/$2/trunk/data_base" "$url/$2/trunk/data_base/edc" "$url/$2/trunk/data_base/lock" "$url/$2/trunk/data_base/main" "$url/$2/trunk/data_base/pgm" \
+                "$url/$2/trunk/data_cleaning" "$url/$2/trunk/data_cleaning/ec" "$url/$2/trunk/data_cleaning/listings" "$url/$2/trunk/data_cleaning/sec" \
+                "$url/$2/trunk/data_coding" "$url/$2/trunk/data_coding/manual_coding" "$url/$2/trunk/data_coding/listings" "$url/$2/trunk/data_coding/pgm" \
+                "$url/$2/trunk/data_edh" "$url/$2/trunk/data_edh/pgm" "$url/$2/trunk/data_edh/source" \
+                "$url/$2/trunk/data_review" "$url/$2/trunk/data_review/datasets" "$url/$2/trunk/data_review/listings" "$url/$2/trunk/data_review/pgm" \
+                "$url/$2/trunk/reporting" \
+                "$url/$2/trunk/sae_rec" "$url/$2/trunk/sae_rec/pgm" "$url/$2/trunk/sae_rec/source" \
+                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+        elif [ "$2" -eq "statdev"]; then
+                svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
+                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+        elif [ "$2" -eq "stat"]; then
+                svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
+                -m "Creating basic directory structure [trunk, tags, branches]" --parents
+        fi
+    else
+        svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
+        -m "Creating basic directory structure [trunk, tags, branches]" --parents
     fi
     
-    
-    svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" -m "Creating basic directory structure [trunk, tags, branches]" --parents
     if [ -d "$3" ]; then
         echo -e "Repository and subfolders created \e[92;4msuccessfully\e[0;24m."
     else
