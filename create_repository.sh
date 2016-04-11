@@ -83,19 +83,13 @@ function template_authz
     PROJECT_TEMPLATE="$3"
     LEAD_TEMPLATE="$4"
     SUB_TEMPLATE="$5"
-    
     LEAD_TEMPLATE="\\&${LEAD_TEMPLATE//,/,\\&}"
     SUB_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
-    
     USERS_FILE="$6"
     
-    #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
     if [ -f "$OUTFILE" ]; then
-        #chmod 770 $OUTFILE
         echo -e "creating file: \e[92m\"$OUTFILE\"\e[0m"
-        #ls -al "$1/conf"
-    # Make the generated file executable.
     else
         echo -e "\e[92mProblem\e[0m in creating file: \e[91m\"$OUTFILE\"\e[0m"
     fi
@@ -103,8 +97,6 @@ function template_authz
     sed -i "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
     sed -i "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
     sed -e '/USERS_LIST/ {' -e "r $USERS_FILE" -e 'd' -e '}' -i $OUTFILE
-    
-    
 }
 
 function usage
@@ -159,7 +151,6 @@ function change_rights
 
 function multiple_choice
 {
-    #echo -e "Display logins : [\e[92m$1\e[0m]"
     local loopUsers="0"
     type_users_list=""
     while [ "$loopUsers" -eq "0" ]; do
@@ -286,37 +277,6 @@ if [ "$interactive" = "1" ]; then
         svnadmin create "$repositoryPath/$repository"
         echo ""
         
-        #echo -e "Display logins : [\e[92m$users_list\e[0m]"
-        #loopUsers="0"
-        #lead_users_list=""
-        #while [ "$loopUsers" -eq "0" ]; do
-        #    response=
-        #    echo -e "Select multiple users \e[96mSeparated by comma (,)\e[0m :"
-        #    loopList=0
-        #    arrayUsers=()
-        #    while IFS='=' read -r -a input; do
-        #        if [ -n "${input[0]}" ];then
-        #            printf "    %s:%s(%d)\n" "${input[0]}" "${input[1]}" $loopList
-        #            arrayUsers=("${arrayUsers[@]}" "${input[0]}")
-        #            ((loopList+=1))
-        #        fi
-        #    done < "$users_list"
-        #    echo -n "Enter your choice > "
-        #    read response
-        #    if [ -n "$response" ]; then
-        #        while IFS=',' read -r -a RESP; do
-        #            #lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
-        #            for i in "${RESP[@]}"; do
-        #                printf "    %d:%s\n" "$i" "${arrayUsers[((i))]}"
-        #                lead_users_list="$lead_users_list,${arrayUsers[((i))]}"
-        #            done
-        #        done <<< $response
-        #        loopUsers="1"
-        #    fi
-        #done
-        #lead_users_list=${lead_users_list:1}
-        #echo ""
-        
         echo -e "Selection of \e[96mlead(s)\e[0m users  :"
         multiple_choice "$users_list"
         lead_users_list="$type_users_list"
@@ -330,7 +290,6 @@ if [ "$interactive" = "1" ]; then
         echo ""
         
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
-        #conf_authz "$repositoryPath/$repository" "$repository"
         template_authz "$repositoryPath/$repository" "$template" "$repository" "$lead_users_list" "$sub_users_list" "$users_list"
         echo ""
         
@@ -338,7 +297,7 @@ if [ "$interactive" = "1" ]; then
         service apache2 restart
         echo ""
         
-        if [ -d "$repositoryPath/$repository/trunk" || -d "$repositoryPath/$repository/tags" || -d "$repositoryPath/$repository/branches" ]; then
+        if [ -d "$repositoryPath/$repository/trunk" ] || [ -d "$repositoryPath/$repository/tags" ] || [ -d "$repositoryPath/$repository/branches" ]; then
             echo -e "The repository structure [\e[91m$repositoryPath/$repository/(trunk|tags|branches)\e[0m] already exists."
             echo ""
         else
