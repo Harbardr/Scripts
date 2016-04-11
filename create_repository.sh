@@ -273,10 +273,14 @@ if [ "$interactive" = "1" ]; then
             echo -n "Enter your choice > "
             read response
             if [ -n "$response" ]; then
-                while IFS=',' read -r -a RESP; do
-                    echo "${RESP[@]} ${arrayUsers[@]}"
-                    lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
+                while IFS=',' read RESP; do
+                    echo "$RESP ${arrayUsers[$RESP]}"
+                    #lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
                 done <<< "$response"
+                #while IFS=',' read -r -a RESP; do
+                #    echo "${RESP[@]} ${arrayUsers[@]}"
+                #    lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
+                #done <<< "$response"
                 loopUsers="1"
             fi
         done
