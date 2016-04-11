@@ -155,6 +155,39 @@ function change_rights
     echo ""
 }
 
+function multiple_choice
+{
+    #echo -e "Display logins : [\e[92m$1\e[0m]"
+    loopUsers="0"
+    type_users_list=""
+    while [ "$loopUsers" -eq "0" ]; do
+        response=
+        echo -e "Select multiple users \e[96mSeparated by comma [,]\e[0m :"
+        loopList=0
+        arrayUsers=()
+        while IFS='=' read -r -a input; do
+            if [ -n "${input[0]}" ];then
+                printf "    %s:%s(%d)\n" "${input[0]}" "${input[1]}" $loopList
+                arrayUsers=("${arrayUsers[@]}" "${input[0]}")
+                ((loopList+=1))
+            fi
+        done < "$1"
+        echo -n "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
+        read response
+        if [ -n "$response" ]; then
+            while IFS=',' read -r -a RESP; do
+                for i in "${RESP[@]}"; do
+                    printf "    %d:%s\n" "$i" "${arrayUsers[((i))]}"
+                    type_users_list="$type_users_list,${arrayUsers[((i))]}"
+                done
+            done <<< $response
+            loopUsers="1"
+        fi
+    done
+    type_users_list=${type_users_list:1}
+}
+
+
 ##### Main
 clear
 interactive=1
@@ -286,7 +319,16 @@ if [ "$interactive" = "1" ]; then
             fi
         done
         lead_users_list=${lead_users_list:1}
+        
+        
+        multiple_choice "$users_list"
+        lead_users_list="$type_users_list"
         echo -e "Lead users : \e[96m$lead_users_list\e[0m"
+        echo ""
+        
+        multiple_choice "$users_list"
+        sub_users_list="$type_users_list"
+        echo -e "Sub users : \e[96m$sub_users_list\e[0m"
         echo ""
         
         change_rights "$repositoryPath/$repository"
