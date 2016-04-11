@@ -87,7 +87,7 @@ function template_authz
     LEAD_TEMPLATE="\\&${LEAD_TEMPLATE//,/,\\&}"
     SUB_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
     
-    USERS_FILE=$(<users.list)
+    USERS_FILE="users.list")"
     
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
@@ -102,10 +102,7 @@ function template_authz
     sed -i "s/PROJECT_TEMPLATE/$PROJECT_TEMPLATE/g" $OUTFILE
     sed -i "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
     sed -i "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
-    
-    #sed -e 's/USERS_LIST/ {r users.list d}' -i $OUTFILE
-    sed -e '/USERS_LIST/ {' -e 'r users.list' -e 'd' -e '}' -i $OUTFILE
-    #sed -i "s/USERS_LIST/$USERS_FILE/g" $OUTFILE
+    sed -e '/USERS_LIST/ {' -e 'r $USERS_FILE' -e 'd' -e '}' -i $OUTFILE
 }
 
 function usage
@@ -163,6 +160,7 @@ clear
 interactive=1
 #filename=
 repository=
+users_list = "users.list"
 
 echo ""
 echo -e "\e[1;100;4m$TITLE\e[49m\e[0m"
@@ -247,6 +245,13 @@ if [ "$interactive" = "1" ]; then
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
         #conf_authz "$repositoryPath/$repository" "$repository"
         template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern,hsantinjanin" "hsantinjanin"
+        echo ""
+        
+        
+        echo -e "Display logins : [\e[92m$users_list\e[0m]"
+        while IFS='=' read -r -a input; do
+            printf "%s\n" "${input[0]}"----"${input[1]}"
+        done < $users_list
         echo ""
         
         change_rights "$repositoryPath/$repository"
