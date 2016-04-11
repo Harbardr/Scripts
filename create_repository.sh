@@ -278,13 +278,10 @@ if [ "$interactive" = "1" ]; then
                 while IFS=',' read -r -a RESP; do
                     #lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
                     for i in "${RESP[@]}"; do
-                        # process "$i"
-                        #printf "    %s:%s\n" "${RESP[$i]}" "${arrayUsers[${RESP[$i]}]}"
-                        printf "    %d:%s:%s\n" "$i" "${arrayUsers[${RESP[$((i))]}]}" "${arrayUsers[((i))]}"
+                        printf "    %d:%s\n" "$i" "${arrayUsers[((i))]}"
+                        lead_users_list="$lead_users_list,${arrayUsers[((i))]}"
                     done
                 done <<< $response
-                #printf "    %s\n" "${RESP[@]}"
-                echo "${arrayUsers[@]}"
                 #while IFS=',' read -r -a RESP; do
                 #    echo "${RESP[@]} ${arrayUsers[@]}"
                 #    lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
@@ -293,7 +290,7 @@ if [ "$interactive" = "1" ]; then
             fi
         done
         lead_users_list=${lead_users_list:1}
-        echo "$lead_users_list"
+        echo -e "Lead users : \e[96m$lead_users_list\e[0m :"
         echo ""
         
         change_rights "$repositoryPath/$repository"
