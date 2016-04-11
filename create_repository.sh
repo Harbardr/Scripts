@@ -81,9 +81,11 @@ function template_authz
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
     TEMPLATE="$2"
     PROJECT_TEMPLATE="$3"
+    LEAD_TEMPLATE="$4"
+    SUB_TEMPLATE="$5"
     
-    LEAD_TEMPLATE="\\&${4/,/,\\&}"
-    SUB_TEMPLATE="\\&${5/,/,\\&}"
+    LEAD_TEMPLATE="\\&${LEAD_TEMPLATE//,/,\\&}"
+    LEAD_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
     
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
