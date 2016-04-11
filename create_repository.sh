@@ -262,12 +262,12 @@ if [ "$interactive" = "1" ]; then
         lead_users_list=""
         while [ "$loopUsers" -eq "0" ]; do
             response=
-            echo -e "Select multiple users \e[92mSeparated by comma (,)\e[0m :"
+            echo -e "Select multiple users \e[96mSeparated by comma (,)\e[0m :"
             loopList=0
             arrayUsers=()
             while IFS='=' read -r -a input; do
-                loopList=$loopList+1
-                printf "%s : %s (%d)\n" "${input[0]}" "${input[1]}" "$loopList"
+                ((loopList+=1))
+                printf "%s : %s (%d)\n" "${input[0]}" "${input[1]}" $loopList
                 arrayUsers=("${arrayUsers[@]}" "${input[0]}")
             done < "$users_list"
             echo -n "Enter your choice > "
