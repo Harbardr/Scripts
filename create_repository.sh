@@ -190,7 +190,7 @@ done
 
 if [ -f "$users_list" ]; then
     echo -e "Users list [\e[92m$users_list\e[0m] available."
-    sed -i "s// //g" $users_list 
+    sed -i "s/ //g" $users_list 
     echo ""
 else
     echo -e "Users list [\e[91m$users_list\e[0m] not available."
@@ -282,15 +282,11 @@ if [ "$interactive" = "1" ]; then
                         lead_users_list="$lead_users_list,${arrayUsers[((i))]}"
                     done
                 done <<< $response
-                #while IFS=',' read -r -a RESP; do
-                #    echo "${RESP[@]} ${arrayUsers[@]}"
-                #    lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
-                #done <<< "$response"
                 loopUsers="1"
             fi
         done
         lead_users_list=${lead_users_list:1}
-        echo -e "Lead users : \e[96m$lead_users_list\e[0m :"
+        echo -e "Lead users : \e[96m$lead_users_list\e[0m"
         echo ""
         
         change_rights "$repositoryPath/$repository"
