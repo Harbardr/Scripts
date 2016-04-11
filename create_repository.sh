@@ -81,8 +81,8 @@ function template_authz
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
     TEMPLATE="$2"
     PROJECT_TEMPLATE="$3"
-    LEAD_TEMPLATE="\\&$4"
-    SUB_TEMPLATE="\\&$5"
+    LEAD_TEMPLATE="\\&${$4/,/,\\&}"
+    SUB_TEMPLATE="\\&${$5/,/,\\&}"
     
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
@@ -238,7 +238,7 @@ if [ "$interactive" = "1" ]; then
         
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
         #conf_authz "$repositoryPath/$repository" "$repository"
-        template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern" "hsantinjanin"
+        template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern,hsantinjanin" "hsantinjanin"
         echo ""
         
         change_rights "$repositoryPath/$repository"
