@@ -76,6 +76,30 @@ _EOF_
     fi
 }
 
+function template_authz
+{
+    OUTFILE="$1/conf/authz"         # Name of the file to generate.
+    TEMPLATE="$2"
+    PROJECT_TEMPLATE="$3"
+    LEAD_TEMPLATE="&$4"
+    SUB_TEMPLATE="&$5"
+    
+    #rm $OUTFILE
+    cp $TEMPLATE $OUTFILE
+    if [ -f "$OUTFILE" ]; then
+        #chmod 770 $OUTFILE
+        echo -e "creating file: \e[92m\"$OUTFILE\"\e[0m"
+        #ls -al "$1/conf"
+    # Make the generated file executable.
+    else
+        echo -e "\e[92mProblem\e[0m in creating file: \e[91m\"$OUTFILE\"\e[0m"
+    fi
+    sed -i.bak "s/PROJECT_TEMPLATE/$PROJECT_TEMPLATE/g" $OUTFILE
+    sed -i.bak "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
+    sed -i.bak "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
+    rm "$2.bak"
+}
+
 function usage
 {
     echo "usage: create_repository [[[-r repository ] [-i]] | [-h]]"
@@ -176,19 +200,24 @@ if [ "$interactive" = "1" ]; then
             case $response in
                 "1" )
                     response="biomdev"
+                    template="template_biom.authz"
                     loopDpt="1"
                     ;;
                 "2" )
                     response="datadev"
+                    template="template_biom.authz"
                     loopDpt="1" ;;
                 "3" )
                     response="data"
+                    template="template_data.authz"
                     loopDpt="1" ;;
                 "4" )
                    response="statdev"
+                    template="template_biom.authz"
                     loopDpt="1" ;;
                 "5" )
                     response="stat"
+                    template="template_stat.authz"
                     loopDpt="1" ;;
             esac
         fi
@@ -208,7 +237,8 @@ if [ "$interactive" = "1" ]; then
         echo ""
         
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
-        conf_authz "$repositoryPath/$repository" "$repository"
+        #conf_authz "$repositoryPath/$repository" "$repository"
+        template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern" "hsantinjanin"
         echo ""
         
         change_rights "$repositoryPath/$repository"
