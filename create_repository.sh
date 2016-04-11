@@ -278,7 +278,7 @@ if [ "$interactive" = "1" ]; then
                     for i in "${RESP[@]}"; do
                         # process "$i"
                         #printf "    %s:%s\n" "${RESP[$i]}" "${arrayUsers[${RESP[$i]}]}"
-                        printf "    %d:%s:%s\n" "$i" "${RESP[$((i-1))]}" "${arrayUsers[${RESP[$((i))]}]}"
+                        printf "    %d:%s\n" "$i" "${arrayUsers[${RESP[$((i))]}]}"
                     done
                 done <<< $response
                 #while IFS=',' read -r -a RESP; do
