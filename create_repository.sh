@@ -147,7 +147,7 @@ while [ "$1" != "" ]; do
                                 ;;
         * )                     usage
                                 exit 1
-    esac
+    esaco
     shift
 done
 

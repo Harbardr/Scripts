@@ -13,7 +13,7 @@ The following options are supported:
 \fB-r\fP , \fB--repository\fP 
 Specify the name of the repository. 
 .TP
-\fB-i\fP
+\fB-i\fP , \fB--interactive\fP
 Specify if the command is interactive or not.
 .TP
 \fB-h\fP
@@ -24,7 +24,7 @@ help for the command.
 .SH EXEMPLES
 .TP
 \fBcreate_repository -r\fP \fIVP000X\fR
-Create the repository for the study \fIVP000X\fR.
+Create the repository for the study \fIVP000X\fR and the structure associated.
 .TP
 \fBcreate_repository -h\fP
 Display the usage of the command.
