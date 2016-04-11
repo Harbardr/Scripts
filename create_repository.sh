@@ -275,8 +275,9 @@ if [ "$interactive" = "1" ]; then
             if [ -n "$response" ]; then
                 while IFS=',' read RESP; do
                     echo "$RESP ${arrayUsers[$RESP]}"
+                    printf "    %s:%s\n" "$RESP" "${arrayUsers[$RESP]}"
                     #lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
-                done <<< "$response"
+                done <<< $response
                 #while IFS=',' read -r -a RESP; do
                 #    echo "${RESP[@]} ${arrayUsers[@]}"
                 #    lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
