@@ -260,7 +260,7 @@ if [ "$interactive" = "1" ]; then
         #echo -e "Display logins : [\e[92m$users_list\e[0m]"
         loopUsers="0"
         lead_users_list=""
-        while [ "loopUsers" -eq "0" ]; do
+        while [ "$loopUsers" -eq "0" ]; do
             response=
             echo -e "Select multiple users \e[92mSeparated by comma (,)\e[0m :"
             loopList=0
