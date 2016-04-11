@@ -275,14 +275,14 @@ if [ "$interactive" = "1" ]; then
             if [ -n "$response" ]; then
                 while IFS=',' read -r -a RESP; do
                     #lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
-                    printf "    %d\n" "$i" "${RESP[@]}"
-                    printf "    %d\n" "$i" "${arrayUsers[@]}"
                     for i in "${RESP[@]}"; do
                         # process "$i"
                         #printf "    %s:%s\n" "${RESP[$i]}" "${arrayUsers[${RESP[$i]}]}"
                         printf "    %d:%s\n" "$i" "${arrayUsers[${RESP[$((i))]}]}"
                     done
                 done <<< $response
+                printf "    %s\n" "${RESP[@]}"
+                printf "    %s\n" "${arrayUsers[@]}"
                 #while IFS=',' read -r -a RESP; do
                 #    echo "${RESP[@]} ${arrayUsers[@]}"
                 #    lead_users_list="$lead_users_list,${arrayUsers[${RESP[@]}]}"
