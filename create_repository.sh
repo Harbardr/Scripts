@@ -188,6 +188,16 @@ done
 #    exit 1
 #fi
 
+if [ -f "$users_list" ]; then
+    echo -e "Users list [\e[92m$users_list\e[0m] available."
+    sed -i "s// //g" $users_list 
+    echo ""
+else
+    echo -e "Users list [\e[91m$users_list\e[0m] not available."
+    exit 1
+fi
+
+
 # Test code to verify command line processing
 if [ "$interactive" = "1" ]; then
     echo -e "Waiting for the repository [\e[92m$repository\e[0m] creation."
@@ -247,11 +257,30 @@ if [ "$interactive" = "1" ]; then
         template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern,hsantinjanin" "hsantinjanin" "$users_list"
         echo ""
         
-        
-        echo -e "Display logins : [\e[92m$users_list\e[0m]"
-        while IFS='=' read -r -a input; do
-            printf "%s\n" "${input[0]}"----"${input[1]}"
-        done < "$users_list"
+        #echo -e "Display logins : [\e[92m$users_list\e[0m]"
+        loopUsers="0"
+        lead_users_list=""
+        while [ "loopUsers" -eq "0" ]; do
+            response=
+            echo -e "Select multiple users \e[92mSeparated by comma (,)\e[0m :"
+            loopList=0
+            arrayUsers=()
+            while IFS='=' read -r -a input; do
+                loopList=$loopList+1
+                printf "%s\n" "${input[0]}" : "${input[1]}" "($loopList)"
+                arrayUsers=("${arrayUsers[@]}" "${input[0]}")
+            done < "$users_list"
+            echo -n "Enter your choice > "
+            read response
+            if [ -n "$response" ]; then
+                while IFS=',' read -r -a response; do
+                    lead_users_list="$lead_users_list,${arrayUsers[${response[0]}]}"
+                done
+                loopUsers="1"
+            fi
+        done
+        lead_users_list=${lead_users_list:1}
+        echo "$lead_users_list"
         echo ""
         
         change_rights "$repositoryPath/$repository"
