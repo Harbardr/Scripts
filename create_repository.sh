@@ -172,7 +172,7 @@ function multiple_choice
                 ((loopList+=1))
             fi
         done < "$1"
-        echo -n "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
+        echo -e "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
         read response
         if [ -n "$response" ]; then
             while IFS=',' read -r -a RESP; do
@@ -319,13 +319,17 @@ if [ "$interactive" = "1" ]; then
             fi
         done
         lead_users_list=${lead_users_list:1}
+        echo ""
         
         
+        echo -e "Selection of \e[96mlead(s)\e[0m users  :"
         multiple_choice "$users_list"
         lead_users_list="$type_users_list"
         echo -e "Lead users : \e[96m$lead_users_list\e[0m"
         echo ""
         
+        
+        echo -e "Selection of \e[96msub(s)\e[0m users  :"
         multiple_choice "$users_list"
         sub_users_list="$type_users_list"
         echo -e "Sub users : \e[96m$sub_users_list\e[0m"
