@@ -87,7 +87,7 @@ function template_authz
     LEAD_TEMPLATE="\\&${LEAD_TEMPLATE//,/,\\&}"
     SUB_TEMPLATE="\\&${SUB_TEMPLATE//,/,\\&}"
     
-    USERS_FILE="users.list")"
+    USERS_FILE="$6"
     
     #rm $OUTFILE
     cp $TEMPLATE $OUTFILE
@@ -244,14 +244,14 @@ if [ "$interactive" = "1" ]; then
         
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
         #conf_authz "$repositoryPath/$repository" "$repository"
-        template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern,hsantinjanin" "hsantinjanin"
+        template_authz "$repositoryPath/$repository" "$template" "$repository" "jfern,hsantinjanin" "hsantinjanin" "$users_list"
         echo ""
         
         
         echo -e "Display logins : [\e[92m$users_list\e[0m]"
         while IFS='=' read -r -a input; do
             printf "%s\n" "${input[0]}"----"${input[1]}"
-        done < $users_list
+        done < "$users_list"
         echo ""
         
         change_rights "$repositoryPath/$repository"
