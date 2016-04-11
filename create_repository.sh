@@ -102,7 +102,7 @@ function template_authz
     sed -i "s/PROJECT_TEMPLATE/$PROJECT_TEMPLATE/g" $OUTFILE
     sed -i "s/LEAD_TEMPLATE/$LEAD_TEMPLATE/g" $OUTFILE
     sed -i "s/SUB_TEMPLATE/$SUB_TEMPLATE/g" $OUTFILE
-    sed -e '/USERS_LIST/ {' -e 'r users.list' -e 'd' -e '}' -i $OUTFILE
+    sed -e '/USERS_LIST/ {' -e "r $USERS_FILE" -e 'd' -e '}' -i $OUTFILE
     
     
 }
