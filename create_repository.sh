@@ -162,7 +162,6 @@ function multiple_choice
     type_users_list=""
     while [ "$loopUsers" -eq "0" ]; do
         response=
-        echo -e "Select multiple users \e[96mSeparated by comma [,]\e[0m :"
         loopList=0
         arrayUsers=()
         while IFS='=' read -r -a input; do
@@ -172,7 +171,7 @@ function multiple_choice
                 ((loopList+=1))
             fi
         done < "$1"
-        echo -e "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
+        echo -e -n "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
         read response
         if [ -n "$response" ]; then
             while IFS=',' read -r -a RESP; do
