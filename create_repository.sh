@@ -109,7 +109,7 @@ function usage
 function structure_repository 
 {
     local url=http://$1
-    echo -e "Creation of the repository [\e[92m$3\e[0m] structure"
+    echo -e "Creation of the repository [\e[92m$3\e[0m] structure at [\e[92m$url\e[0m]"
     if [ -n "$4" ]; then
         if [ "$4"=="biomdev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
