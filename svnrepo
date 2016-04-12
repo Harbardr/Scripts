@@ -75,7 +75,16 @@ function structure_repository
                 creationStatus="1"
         elif [ "$4" == "stat" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
-                -m "Creating basic directory \e[92;4mstat\e[0;24m structure [trunk, tags, branches]" --parents
+                "$url/$2/trunk/ads" \
+                "$url/$2/trunk/ads/log" "$url/$2/trunk/ads/log/log_val" "$url/$2/trunk/ads/adstrack" "$url/$2/trunk/ads/adstemp" \
+                "$url/$2/trunk/ads/adsres" "$url/$2/trunk/ads/adspgm" "$url/$2/trunk/ads/adsmain" "$url/$2/trunk/ads/adsmac" \
+                "$url/$2/trunk/ads/adslibrary" "$url/$2/trunk/ads/adsfoot" "$url/$2/trunk/ads/adsval" "$url/$2/trunk/ads/adsdoc" "$url/$2/trunk/ads/addmain" \
+                "$url/$2/trunk/tlf" "$url/$2/trunk/tlf/tf" "$url/$2/trunk/tlf/tf/pgm" "$url/$2/trunk/tlf/tf/pgm/pgm_val" \
+                "$url/$2/trunk/tlf/tf/out" \
+                "$url/$2/trunk/tlf/tf/out/single" "$url/$2/trunk/tlf/tf/out/complete" "$url/$2/trunk/tlf/tf/out/val" "$url/$2/trunk/tlf/tf/log" "$url/$2/trunk/tlf/tf/log/log_val" \
+                "$url/$2/trunk/tlf/list" \
+                "$url/$2/trunk/tlf/list/pgm" "$url/$2/trunk/tlf/list/out" "$url/$2/trunk/tlf/list/out/single" "$url/$2/trunk/tlf/list/out/complete" "$url/$2/trunk/tlf/list/log" \
+                -m "Creating basic directory \e[92;4mdata\e[0;24m structure [trunk, tags, branches]" --parents
                 creationStatus="1"
         fi
     else
