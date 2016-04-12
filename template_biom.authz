@@ -1,0 +1,34 @@
+[aliases]
+USERS_LIST
+
+[groups]
+stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
+data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
+all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
+lead = LEAD_TEMPLATE
+sub = SUB_TEMPLATE
+
+[/]
+* = r
+@lead = rw
+@sub = rw
+
+[PROJECT_TEMPLATE:/]
+* =
+@lead = rw
+@sub = rw
+
+[PROJECT_TEMPLATE:/trunk]
+* =
+@lead = rw
+@sub = rw
+
+[PROJECT_TEMPLATE:/tags]
+* =
+@lead = rw
+@sub = rw
+
+[PROJECT_TEMPLATE:/branches]
+* =
+@lead = rw
+@sub = rw
