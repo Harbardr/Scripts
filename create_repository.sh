@@ -104,7 +104,6 @@ function multiple_choice
 {
     local loopUsers="0"
     type_users_list=""
-    local REGEX="^[0-9,]*$"
     while [ "$loopUsers" -eq "0" ]; do
         local response=
         local loopList=0
@@ -185,7 +184,7 @@ if [ "$interactive" == "1" ]; then
         echo "    stat    (5)"
         echo -n "Enter your choice > "
         read response
-        if [ -n "$response" ]; then
+        if [[ $response =~ ^[0-9]*$ ]];; then
             case $response in
                 "1" )
                     response="biomdev"
