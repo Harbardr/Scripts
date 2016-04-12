@@ -6,76 +6,12 @@ RIGHT_NOW=$(date +"%x %r %Z")
 TIME_STAMP="Updated on $RIGHT_NOW by $USER"
 SVN_PARENT_PATH="/mnt/biomsvn/"
 
+interactive=1
+#filename=
+repository=
+users_list="users.list"
+
 ##### Functions
-function conf_authz
-{
-    OUTFILE="$1/conf/authz"         # Name of the file to generate.
-    #rm $OUTFILE
-    # ----------------------------------------------------------
-    # 'The document containing the body of the authz.
-    (
-    cat <<- _EOF_
-[aliases]
-jfern = julien.fernandez
-hsantinjanin = hugues.santinjanin
-acosta = adeline.costa
-alari = alberth.lari
-atourneroche = alice.tourneroche
-danbarasu = dhiwakar.anbarasu
-epauwels = elodie.pauwels
-faubin = francois.aubin
-iackermann = isabelle.ackermann
-lhannouche = linda.hannouche
-mmonnereau = magalie.monnereau
-chariz = cleo.hariz
-nbraquet = nelly.braquet
-smainard = sandrine.mainard
-
-[groups]
-stat = &hsantinjanin,&atourneroche,&faubin,&nbraquet
-data = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&smainard
-all = &jfern,&acosta,&alari,&danbarasu,&faubin,&iackermann,&lhannouche,&chariz,&mmonnereau,&hsantinjanin,&atourneroche,&nbraquet,&smainard
-
-[/]
-* = r
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/]
-* =
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/trunk]
-* =
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/tags]
-* =
-&jfern = rw
-&hsantinjanin = rw
-
-[$2:/branches]
-* =
-&jfern = rw
-&hsantinjanin = rw
-_EOF_
-    ) > $OUTFILE
-    # -----------------------------------------------------------
-    #  Quoting the 'limit string' prevents variable expansion
-    #+ within the body of the above 'here document.'
-    #  This permits outputting literal strings in the output file.
-    if [ -f "$OUTFILE" ]; then
-        #chmod 770 $OUTFILE
-        echo -e "creating file: \e[92m\"$OUTFILE\"\e[0m"
-        #ls -al "$1/conf"
-    # Make the generated file executable.
-    else
-        echo -e "\e[92mProblem\e[0m in creating file: \e[91m\"$OUTFILE\"\e[0m"
-    fi
-}
-
 function template_authz
 {
     OUTFILE="$1/conf/authz"         # Name of the file to generate.
@@ -109,17 +45,20 @@ function usage
 function structure_repository 
 {
     local url=http://$1
+    local creationStatus="0"
     echo -e "Creation of the repository [\e[92m$3\e[0m] structure at [\e[92m$url\e[0m]"
     if [ -n "$4" ]; then
-        echo -e "\e[92m$4\e[0m"
+        #echo -e "\e[92m$4\e[0m"
         if [ "$4" == "biomdev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory \e[92;4mbiomdev\e[0;24m structure [trunk, tags, branches]" --parents
+                creationStatus="1"
         elif [ "$4" == "datadev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory \e[92;4mdatadev\e[0;24m structure [trunk, tags, branches]" --parents
+                creationStatus="1"
         elif [ "$4" == "data" ]; then
-                echo -e "\e[91m$4\e[0m"
+                #echo -e "\e[91m$4\e[0m"
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 "$url/$2/trunk/data_base" "$url/$2/trunk/data_base/edc" "$url/$2/trunk/data_base/lock" "$url/$2/trunk/data_base/main" "$url/$2/trunk/data_base/pgm" \
                 "$url/$2/trunk/data_cleaning" "$url/$2/trunk/data_cleaning/ec" "$url/$2/trunk/data_cleaning/listings" "$url/$2/trunk/data_cleaning/sec" \
@@ -129,12 +68,15 @@ function structure_repository
                 "$url/$2/trunk/reporting" \
                 "$url/$2/trunk/sae_rec" "$url/$2/trunk/sae_rec/pgm" "$url/$2/trunk/sae_rec/source" \
                 -m "Creating basic directory \e[92;4mdata\e[0;24m structure [trunk, tags, branches]" --parents
+                creationStatus="1"
         elif [ "$4" == "statdev" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory \e[92;4mstatdev\e[0;24m structure [trunk, tags, branches]" --parents
+                creationStatus="1"
         elif [ "$4" == "stat" ]; then
                 svn mkdir "$url/$2/trunk" "$url/$2/branches" "$url/$2/tags" \
                 -m "Creating basic directory \e[92;4mstat\e[0;24m structure [trunk, tags, branches]" --parents
+                creationStatus="1"
         fi
     else
         echo -e "\e[91;4mProblem\e[0;24m during creation of the Repository and subfolders."
@@ -142,7 +84,7 @@ function structure_repository
         -m "Creating basic directory structure [trunk, tags, branches]" --parents
     fi
     
-    if [ -d "$3" ]; then
+    if [ "$creationStatus" == "1" ]; then
         echo -e "Repository and subfolders created \e[92;4msuccessfully\e[0;24m."
     else
         echo -e "\e[91;4mProblem\e[0;24m during creation of the Repository and subfolders."
@@ -162,6 +104,7 @@ function multiple_choice
 {
     local loopUsers="0"
     type_users_list=""
+    local REGEX="^([[:digit:]],)*$"
     while [ "$loopUsers" -eq "0" ]; do
         local response=
         local loopList=0
@@ -175,7 +118,7 @@ function multiple_choice
         done < "$1"
         echo -e -n "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
         read response
-        if [ -n "$response" ]; then
+        if [ -n "$response" ] && [[ "$response" =~ $REGEX" ]]; then
             while IFS=',' read -r -a RESP; do
                 for i in "${RESP[@]}"; do
                     printf "    %d:%s\n" "$i" "${arrayUsers[((i))]}"
@@ -191,10 +134,6 @@ function multiple_choice
 
 ##### Main
 clear
-interactive=1
-#filename=
-repository=
-users_list="users.list"
 
 echo ""
 echo -e "\e[1;100;4m$TITLE\e[49m\e[0m"
@@ -231,9 +170,8 @@ else
     exit 1
 fi
 
-
 # Test code to verify command line processing
-if [ "$interactive" = "1" ]; then
+if [ "$interactive" == "1" ]; then
     echo -e "Waiting for the repository [\e[92m$repository\e[0m] creation."
     loopDpt="0"
     while [ "$loopDpt" -eq "0" ]; do
@@ -271,11 +209,11 @@ if [ "$interactive" = "1" ]; then
                     loopDpt="1" ;;
             esac
         fi
-        if [ "$loopDpt"=="1" ]; then
+        if [ "$loopDpt" == "1" ]; then
             repositoryPath="$SVN_PARENT_PATH$response"
             echo -e "Your choice [\e[92m$repositoryPath\e[0m]."
         else
-            cd -e "The choice [\e[91m$response\e[0m] don't exist."
+            echo -e "The choice [\e[91m$response\e[0m] don't exist."
         fi
     done
 
