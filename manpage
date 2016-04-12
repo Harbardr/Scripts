@@ -1,5 +1,4 @@
-  GNU nano 2.2.6                                                        File: manpage
-
+#!/usr/bin/many
 .\" Manpage for create_repository.
 .\" Contact julien.fernandez@venncro.com to correct errors or typos.
 .TH CREATE_REPOSITORY 1 "April 08, 2016" "Version 1.0" "create_repository Manual"
