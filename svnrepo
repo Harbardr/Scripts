@@ -138,21 +138,26 @@ clear
 echo ""
 echo -e "\e[1;100;4m$TITLE\e[49m\e[0m"
 
-while [ "$1" != "" ]; do
-    case $1 in
-        -r | --repository )     shift
-                                repository=$1
-                                ;;
-        -i | --interactive )    interactive=1
-                                ;;
-        -h | --help )           usage
-                                exit
-                                ;;
-        * )                     usage
-                                exit 1
-    esac
-    shift
-done
+if [ "$1" != "" ]; then
+    while [ "$1" != "" ]; do
+        case $1 in
+            -r | --repository )     shift
+                                    repository=$1
+                                    ;;
+            -i | --interactive )    interactive=1
+                                    ;;
+            -h | --help )           usage
+                                    exit
+                                    ;;
+            * )                     usage
+                                    exit 1
+        esac
+        shift
+    done
+else
+    usage
+    exit 1
+fi
 
 #if [ -n "$1" ]; then
 #    interactive=1
