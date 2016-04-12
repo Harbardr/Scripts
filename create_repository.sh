@@ -104,7 +104,7 @@ function multiple_choice
 {
     local loopUsers="0"
     type_users_list=""
-    local REGEX="^[[0-9,]]*$"
+    local REGEX="^[0-9,]*$"
     while [ "$loopUsers" -eq "0" ]; do
         local response=
         local loopList=0
@@ -118,7 +118,8 @@ function multiple_choice
         done < "$1"
         echo -e -n "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
         read response
-        if [ -n "$response" ] && [[ "$response" =~ "$REGEX" ]]; then
+        #if [ -n "$response" ] && [[ "$response" =~ "$REGEX" ]]; then
+        if [[ "$response" =~ "$REGEX" ]]; then
             while IFS=',' read -r -a RESP; do
                 for i in "${RESP[@]}"; do
                     printf "    %d:%s\n" "$i" "${arrayUsers[((i))]}"
