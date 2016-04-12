@@ -118,7 +118,7 @@ function multiple_choice
         done < "$1"
         echo -e -n "Enter your selection \e[96mSeparated by comma [,]\e[0m > "
         read response
-        if [ -n "$response" ] && [[ "$response" =~ $REGEX" ]]; then
+        if [ -n "$response" ] && [[ "$response" =~ "$REGEX" ]]; then
             while IFS=',' read -r -a RESP; do
                 for i in "${RESP[@]}"; do
                     printf "    %d:%s\n" "$i" "${arrayUsers[((i))]}"
