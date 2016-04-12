@@ -104,7 +104,7 @@ function multiple_choice
 {
     local loopUsers="0"
     type_users_list=""
-    local REGEX="^([[:digit:]],)*$"
+    local REGEX="^[[0-9,]]*$"
     while [ "$loopUsers" -eq "0" ]; do
         local response=
         local loopList=0
