@@ -1,7 +1,9 @@
+  GNU nano 2.2.6                                                        File: manpage
+
 .\" Manpage for create_repository.
 .\" Contact julien.fernandez@venncro.com to correct errors or typos.
 .TH CREATE_REPOSITORY 1 "April 08, 2016" "Version 1.0" "create_repository Manual"
-.SH NAME 
+.SH NAME
 create_repository \- create a new SVN repository and associated structure
 .SH SYNOPSIS
 create_repository [[[\fB-r\fP repository ] [\fB-i\fP]] | [\fB-h\fP]]
@@ -10,17 +12,17 @@ create_repository description.
 .SH OPTIONS
 The following options are supported:
 .TP
-\fB-r\fP , \fB--repository\fP 
-Specify the name of the repository. 
+\fB-r\fP , \fB--repository\fP
+Specify the name of the repository.
 .TP
 \fB-i\fP , \fB--interactive\fP
-Specify if the command is interactive or not.
+Specify if the command is interactive or not. Not yet used.
 .TP
 \fB-h\fP
 help for the command.
 .br
 .TP
-\fINote:\fP beware that choosing '\fB-i\fP'.
+\fINote:\fP beware that choosing '\fB-i\fP' not yet used.
 .SH EXEMPLES
 .TP
 \fBcreate_repository -r\fP \fIVP000X\fR
@@ -30,6 +32,6 @@ Create the repository for the study \fIVP000X\fR and the structure associated.
 Display the usage of the command.
 .SH SEE ALSO
 .SH BUGS
-No known bugs.
+No known bugs. Send an email to julien.fernandez@venncro.com otherwise.
 .SH AUTHOR
-Julien Fernandez (julien.fernandez@venncro.com)
+Julien Fernandez (julien.fernandez@venncro.com) - VENN LIFE SCIENCES
