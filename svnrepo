@@ -229,16 +229,16 @@ if [ "$interactive" == "1" ]; then
         svnadmin create "$repositoryPath/$repository"
         echo ""
         
-        echo -e "Selection of \e[96mlead(s)\e[0m users  :"
+        echo -e "Selection of \e[96mlead(s)\e[0m user(s)  :"
         multiple_choice "$users_list"
         lead_users_list="$type_users_list"
-        echo -e "Lead users : \e[96m$lead_users_list\e[0m"
+        echo -e "Lead user(s) : \e[96m$lead_users_list\e[0m"
         echo ""
         
-        echo -e "Selection of \e[96msub(s)\e[0m users  :"
+        echo -e "Selection of \e[96mbackup(s)\e[0m user(s)  :"
         multiple_choice "$users_list"
         sub_users_list="$type_users_list"
-        echo -e "Sub users : \e[96m$sub_users_list\e[0m"
+        echo -e "Backup user(s) : \e[96m$sub_users_list\e[0m"
         echo ""
         
         echo -e "Creation of the authz file : [\e[92m$repositoryPath/$repository\e[0m]"
