@@ -184,7 +184,7 @@ if [ "$interactive" == "1" ]; then
         echo "    stat    (5)"
         echo -n "Enter your choice > "
         read response
-        if [[ $response =~ ^[0-9]*$ ]];; then
+        if [[ $response =~ ^[0-9]*$ ]]; then
             case $response in
                 "1" )
                     response="biomdev"
