@@ -31,139 +31,125 @@ sub = SUB_TEMPLATE
 [PROJECT_TEMPLATE:/branches]
 * =
 @lead = rw
-@sub = r
-
-[PROJECT_TEMPLATE:/trunk/ads]
-* =
-@lead = rw
-@sub = r
-
-[PROJECT_TEMPLATE:/trunk/ads/log]
-* =
-@lead = rw
-@sub = r
-
-[PROJECT_TEMPLATE:/trunk/ads/log/log_val]
-* =
-@lead = rw
 @sub = rw
 
-[PROJECT_TEMPLATE:/trunk/ads/adstrack]
-* =
-@lead = rw
 
-[PROJECT_TEMPLATE:/trunk/ads/adstemp]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adsres]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adspgm]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adsmain]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adsmac]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adslibrary]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adsfoot]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adsval]
-* =
-@lead = rw
-@sub = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/adsdoc]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/ads/addmain]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/tlf]
+[PROJECT_TEMPLATE:/trunk/data_base]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/tf]
+[PROJECT_TEMPLATE:/trunk/data_base/edc]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/tf/pgm]
+[PROJECT_TEMPLATE:/trunk/data_base/lock]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/tf/pgm/pgm_val]
-* =
-@lead = rw
-@sub = rw
-
-[PROJECT_TEMPLATE:/trunk/tlf/tf/out]
+[PROJECT_TEMPLATE:/trunk/data_base/main]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/tf/out/single]
+[PROJECT_TEMPLATE:/trunk/data_base/pgm]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/tf/out/complete]
+[PROJECT_TEMPLATE:/trunk/data_cleaning]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/tf/out/val]
-* =
-@lead = rw
-@sub = rw
-
-[PROJECT_TEMPLATE:/trunk/tlf/tf/log]
+[PROJECT_TEMPLATE:/trunk/data_cleaning/ec]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/tf/log/log_val]
-* =
-@lead = rw
-@sub = rw
-
-[PROJECT_TEMPLATE:/trunk/tlf/list]
-* =
-@lead = rw
-
-[PROJECT_TEMPLATE:/trunk/tlf/list/pgm]
+[PROJECT_TEMPLATE:/trunk/data_cleaning/listings]
 * =
 @lead = rw
 @sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/list/out]
+[PROJECT_TEMPLATE:/trunk/data_cleaning/sec]
 * =
 @lead = rw
+@sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/list/out/single]
+[PROJECT_TEMPLATE:/trunk/data_coding]
 * =
 @lead = rw
+@sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/list/out/complete]
+[PROJECT_TEMPLATE:/trunk/data_coding/manual_coding]
 * =
 @lead = rw
+@sub = r
 
-[PROJECT_TEMPLATE:/trunk/tlf/list/log]
+[PROJECT_TEMPLATE:/trunk/data_coding/listings]
 * =
 @lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_coding/pgm]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_edh]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_edh/pgm]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_edh/source]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_review]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_review/datasets]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_review/listings]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/data_review/pgm]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/reporting]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/sae_rec]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/sae_rec/pgm]
+* =
+@lead = rw
+@sub = r
+
+[PROJECT_TEMPLATE:/trunk/sae_rec/source]
+* =
+@lead = rw
+@sub = r
